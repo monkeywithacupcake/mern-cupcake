@@ -2,6 +2,8 @@ import axios from 'axios';
 import {
     GET_USER_CUPCAKES,
     GET_USER_MONKEYS,
+    ADD_USER_CUPCAKE,
+    ADD_USER_MONKEY,
     UNAUTH_USER,
     AUTH_USER,
     AUTH_ERROR,
@@ -90,6 +92,28 @@ export function signupUser({ email, password, passwordmatch, name }) {
     };
 }
 
+export function createMonkey(userid, name) {
+    return function(dispatch) {
+        const url = `${USER_API_URL}/${userid}/monkey/new`;
+        const request = axios.post(url, {
+            headers: { authorization: `Bearer ${localStorage.getItem('token')}` },
+            name
+        });
+        request
+            .then(response => {
+                console.log("createMonkey has RESPONSE", response.data.createdMonkey)
+                dispatch({
+                    type: GET_USER_MONKEYS,
+                    payload: response.data.createdMonkey
+                });
+            })
+            // If request is bad...
+            // -Show an error to the user
+            .catch(() => {
+                console.log('error');
+            });
+    };
+}
 
 
 export function fetchUserMonkeys(userid) {

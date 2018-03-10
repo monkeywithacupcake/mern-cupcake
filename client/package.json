@@ -26,6 +26,7 @@
         "redux": "^3.7.2",
         "redux-form": "^7.2.1",
         "redux-thunk": "^2.2.0"
+
     },
     "scripts": {
         "start": "react-scripts start",
