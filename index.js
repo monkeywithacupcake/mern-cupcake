@@ -3,11 +3,8 @@ const mongoose = require('mongoose');
 const morgan = require('morgan'); // logger
 const bodyParser = require('body-parser');
 const keys = require('./config/keys');
-//const db = require('./config/database');
 
 mongoose.Promise = global.Promise;
-// DB setup
-//mongoose.connect(db.url, db.opts);
 
 const options = {
   useMongoClient: true,
@@ -18,15 +15,15 @@ const options = {
   // If not connected, return errors immediately rather than waiting for reconnect
   bufferMaxEntries: 0
 };
-mongoose.connect('mongodb://localhost/cupcaketest', options);
-// mongoose.connect(mongoURI, function(err) {
-//   if(err) {
-//     console.log('connection error', err);
-//   }
-//   else {
-//     console.log('connection with database successful');
-//   }
-// });
+mongoose.connect('mongodb://localhost:27017/cupcaketest', options, function(err) {
+  if(err) {
+    console.log('connection error', err);
+  }
+  else {
+    console.log('connection with database successful');
+  }
+});
+
 mongoose.set("debug", true);
 
 const app = express(); // calling express() creates a new express app

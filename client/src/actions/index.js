@@ -67,18 +67,18 @@ export function signupUser({ email, password, passwordmatch, name }) {
         request
             .then(response => {
                 // -Save the JWT token
-                localStorage.setItem('token', response.data.token);
+                //localStorage.setItem('token', response.data.token);
                 console.log(
                     'ACTION CREATOR RESPONSE FROM API: ',
                     response.data
                 );
                 // -if request is good, we need to update state to indicate user is authenticated
-                dispatch({
-                    type: AUTH_USER, payload: response.data.createdUser
-                });
-                console.log(
-                    'action creator response has just authenticated the user!'
-                );
+                // dispatch({
+                //     type: AUTH_USER, payload: response.data.createdUser
+                // });
+                // console.log(
+                //     'action creator response has just authenticated the user!'
+                // );
             })
 
             // If request is bad...
