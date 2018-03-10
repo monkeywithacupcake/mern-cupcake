@@ -10,7 +10,7 @@ I was losing my mind with a real web application after several tutorials, so I b
 ### Components
 Currently, MERN Cupcake has a landing page, a signup form, and a signin form. Users can log out by clicking the signout. There is no user content yet. That is next.
 
-![SignIn Form Screenshot](/screenshots/signin)
+![SignIn Form Screenshot](/screenshots/signin.png)
 
 ### Usage
 
