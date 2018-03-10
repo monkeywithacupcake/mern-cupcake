@@ -1,0 +1,36 @@
+{
+  "name": "Cupcake",
+  "version": "1.0.0",
+  "description": "A User App",
+  "main": "index.js",
+  "engine": {
+    "node": "8.9.x",
+    "npm": "5.6.x"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "server": "nodemon index.js",
+    "client": "npm run start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+  },
+  "author": "Jess Chandler",
+  "license": "MIT",
+  "dependencies": {
+    "ajv": "^6.2.1",
+    "bcrypt": "^1.0.3",
+    "body-parser": "^1.18.2",
+    "concurrently": "^3.5.1",
+    "cookie-session": "^2.0.0-beta.3",
+    "express": "^4.16.2",
+    "jsonwebtoken": "^8.1.1",
+    "mongoose": "^4.13.9",
+    "morgan": "^1.9.0",
+    "nodemon": "^1.14.11",
+    "passport": "^0.4.0",
+    "passport-google-oauth20": "^1.0.0",
+    "path-parser": "^3.0.1",
+    "redux-logger": "^3.0.6",
+    "url": "^0.11.0"
+  }
+}
