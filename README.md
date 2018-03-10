@@ -1,7 +1,16 @@
 ## MERN Stack
 I was losing my mind with a real web application after several tutorials, so I built this project.
 
-** Currently does not work, doesn't send data to the local mongo db. **
+**Stack**
+ + MongoDB for storage w Mongoose for communications
+ + Express as the server
+ + React and Redux for the front-end
+ + Node for the API
+
+### Components
+Currently, MERN Cupcake has a landing page, a signup form, and a signin form. Users can log out by clicking the signout. There is no user content yet. That is next.
+
+![SignIn Form Screenshot](/screenshots/signin)
 
 ### Usage
 
