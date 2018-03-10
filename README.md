@@ -7,11 +7,6 @@ I was losing my mind with a real web application after several tutorials, so I b
  + React and Redux for the front-end
  + Node for the API
 
-### Components
-Currently, MERN Cupcake has a landing page, a signup form, and a signin form. Users can log out by clicking the signout. There is no user content yet. That is next.
-
-![SignIn Form Screenshot](/screenshots/signinform.png)
-
 ### Usage
 
 Download and setup the project:
@@ -46,6 +41,18 @@ npm run dev
 ```
 
 Navigate to `localhost:3000` in your browser. Watch detailed redux logs in the javascript console
+
+### Components
+Currently, MERN Cupcake has a landing page, a signup form, and a signin form. Users can log out by clicking the signout. There is no user content yet. That is next.
+
+#### Add users to the db with the Sign Up form
+![SignUp Form Screenshot](/screenshots/signupform.png)
+
+#### Sign in users with the Sign In form
+![SignIn Form Screenshot](/screenshots/signinform.png)
+
+#### Users go to a dashboard when log in is successful
+![Dashboard Screenshot](/screenshots/userdash.png)
 
 ### Contributing
 Please open issues, submit PRs, whatever.
