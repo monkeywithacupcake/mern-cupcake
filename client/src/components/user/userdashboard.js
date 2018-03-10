@@ -19,7 +19,7 @@ class UserDashboard extends Component {
 
 function mapStateToProps(state) {
     const user = state.auth.user;
-    const events = state.userdata.cupcakes;
+    const cupcakes = state.userdata.cupcakes;
     return { user: user };
 }
 

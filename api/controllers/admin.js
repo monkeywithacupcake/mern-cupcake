@@ -72,7 +72,7 @@ exports.cupcakes_get_all = (req, res, next) => {
                         color: doc.color,
                         status: doc.status,
                         monkey: doc.monkey.name,
-                        user: doc.user
+                        user: doc.user,
                         _id: doc._id
                     }
                 })

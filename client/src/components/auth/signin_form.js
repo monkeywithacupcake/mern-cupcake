@@ -18,7 +18,7 @@ class SigninForm extends Component {
 
     return (
       <div className="container">
-      <div className="section col m8 offset-m2 s12 center">
+      <div className="section col m8 offset-m2 s12">
         {this.renderAlert()}
         <form onSubmit={handleSubmit}>
 

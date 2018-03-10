@@ -7,7 +7,25 @@ const User = require('../models/user');
 const Monkey = require('../models/monkey');
 const Cupcake = require('../models/cupcake');
 
+
+// function tokenForUser(userid) {
+//     const timestamp = new Date().getTime();
+//     return jwt.encode({ sub: userid, iat: timestamp }, keys.jwtKey);
+// }
+
+// const token = jwt.sign(
+//     {
+//         email: user[0].email,
+//         userId: user[0]._id
+//     },
+//     keys.jwtKey,
+//     {
+//         expiresIn: '1h'
+//     }
+// );
+
 exports.signup_user = (req, res, next) => {
+    console.log("try to signupuser")
     User.find({ email: req.body.email })
         .exec()
         .then(user => {
@@ -33,9 +51,20 @@ exports.signup_user = (req, res, next) => {
                         user
                             .save()
                             .then(result => {
+                                const token = jwt.sign(
+                                    {
+                                        email: result.email,
+                                        userId: result._id
+                                    },
+                                    keys.jwtKey,
+                                    {
+                                        expiresIn: '1h'
+                                    }
+                                );
                                 console.log(result);
                                 res.status(201).json({
                                     message: 'creating a new user',
+                                    token: token,
                                     createdUser: {
                                         email: result.email,
                                         id: result._id,
@@ -223,7 +252,7 @@ exports.create_user_cupcake = (req, res, next) => {
                     createdCupcake: {
                         monkey: result.monkey,
                         color: result.color,
-                        status: result.status
+                        status: result.status,
                         _id: result._id
                     }
                 });

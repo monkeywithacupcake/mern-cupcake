@@ -135,3 +135,10 @@ export function fetchUserCupcakes(userid) {
             });
     };
 }
+
+export function authError(error) {
+  return {
+    type: AUTH_ERROR,
+    payload: error
+  }
+}
