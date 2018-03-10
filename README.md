@@ -24,9 +24,9 @@ module.exports = {
 
 ```
 
-Then, you can start running it by opening a second terminal
+Then, you can start running it by opening a second terminal. You need a local installation of mongodb (or change up the code to work with mLab or mongo online). [Install MongoDB](https://docs.mongodb.com/manual/installation/)
 
-*Terminal 1 - MONGO*
+*Terminal 1 - MONGO* Just start the db
 ```
 mongod
 ```
