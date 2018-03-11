@@ -2,10 +2,16 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
  
 export default class Monkeys extends Component {
+    renderMonkeys() {
+        if (this.props.monkeys != null) {
+            {this.props.monkeys.map((monkey, i) => <li key={i}>{monkey.name}</li>)}
+        }
+    }
   render() {
     return (
         <ul>
         <li>SOMEDAY THIS WILL BE A MONKEY</li>
+        {this.renderMonkeys}
         </ul>
     )
   }

@@ -16,7 +16,7 @@ class UserDashboard extends Component {
         //this.handleRefreshClick = this.handleRefreshClick.bind(this);
     }
     componentDidMount() {
-        const { userid } = this.props.user._id;
+        const userid = this.props.user._id;
         if (userid != null) {
             this.props.fetchUserMonkeys({ userid });
         }
@@ -42,9 +42,20 @@ class UserDashboard extends Component {
 
     handleGetMonkeys(e) {
         e.preventDefault();
-        const userid  = this.props.user._id;
+        const userid = this.props.user._id;
         this.props.fetchUserMonkeys({ userid });
-        
+    }
+
+    renderMonkeys() {
+        if (this.props.monkeys != undefined && this.props.monkeys.length > 0) {
+            return (
+                <ul>
+                    {this.props.monkeys.map((monkey, i) => (
+                        <li key={i}>{monkey.name}</li>
+                    ))}
+                </ul>
+            );
+        }
     }
 
     render() {
@@ -61,11 +72,14 @@ class UserDashboard extends Component {
                             <AddMonkeyForm onSubmit={this.handleSubmit} />
                         </div>
                         <div className="col m6 s12">Existing monkeys</div>
-                        <button onClick={this.handleGetMonkeys}>
+                        <button
+                            className="btn-large"
+                            onClick={this.handleGetMonkeys}
+                        >
                             {' '}
-                            Get Monkeys{' '}
+                            Get Monkeys
                         </button>
-                        <Monkeys monkeys={this.props.monkeys} />
+                        {this.renderMonkeys()}
                     </div>
                 </div>
                 <div className="section">
@@ -89,4 +103,4 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps, actions)(UserDashboard);
 
-//                        <AddMonkeyForm onSubmit={this.handleSubmit.bind(this)}/>
+//<Monkeys monkeys={this.props.monkeys} />
