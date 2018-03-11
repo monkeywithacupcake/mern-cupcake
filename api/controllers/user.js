@@ -8,22 +8,6 @@ const Monkey = require('../models/monkey');
 const Cupcake = require('../models/cupcake');
 
 
-// function tokenForUser(userid) {
-//     const timestamp = new Date().getTime();
-//     return jwt.encode({ sub: userid, iat: timestamp }, keys.jwtKey);
-// }
-
-// const token = jwt.sign(
-//     {
-//         email: user[0].email,
-//         userId: user[0]._id
-//     },
-//     keys.jwtKey,
-//     {
-//         expiresIn: '1h'
-//     }
-// );
-
 exports.signup_user = (req, res, next) => {
     console.log("try to signupuser")
     User.find({ email: req.body.email })
@@ -136,7 +120,7 @@ exports.login_user = (req, res, next) => {
 
 exports.create_user_monkey = (req, res, next) => {
     const userid = req.params.userID;
-    console.log(userid);
+    console.log("Made it to the API for create_user_monkey");
     User.findById(userid)
         .then(user => {
             if (!user) {

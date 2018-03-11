@@ -12,14 +12,12 @@ import {
 
 const USER_API_URL = '/api/user';
 
-
 export function signoutUser() {
     localStorage.removeItem('token');
     return {
         type: UNAUTH_USER
     };
 }
-
 
 export function signinUser({ email, password }) {
     console.log('ACTION CREATOR signinUser running with:', email, password);
@@ -40,7 +38,8 @@ export function signinUser({ email, password }) {
                 );
                 // -if request is good, we need to update state to indicate user is authenticated
                 dispatch({
-                    type: AUTH_USER, payload: response.data.user
+                    type: AUTH_USER,
+                    payload: response.data.user
                 });
                 console.log(
                     'action creator response has just authenticated the user!'
@@ -57,7 +56,12 @@ export function signinUser({ email, password }) {
 }
 
 export function signupUser({ email, password, passwordmatch, name }) {
-    console.log('ACTION CREATOR signupUser running with:', email, password, name);
+    console.log(
+        'ACTION CREATOR signupUser running with:',
+        email,
+        password,
+        name
+    );
 
     return function(dispatch) {
         // submit email and password to server
@@ -92,16 +96,24 @@ export function signupUser({ email, password, passwordmatch, name }) {
     };
 }
 
-export function createMonkey(userid, name) {
+export function createMonkey({userid, name}) {
+    console.log('ACTION createMonkey has:', userid, name);
+
     return function(dispatch) {
         const url = `${USER_API_URL}/${userid}/monkey/new`;
-        const request = axios.post(url, {
-            headers: { authorization: `Bearer ${localStorage.getItem('token')}` },
-            name
+
+        console.log(url);
+        const request = axios.post(url, {name}, {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
         });
         request
             .then(response => {
-                console.log("createMonkey has RESPONSE", response.data.createdMonkey)
+                console.log(
+                    'createMonkey has RESPONSE',
+                    response.data.createdMonkey
+                );
                 dispatch({
                     type: GET_USER_MONKEYS,
                     payload: response.data.createdMonkey
@@ -115,16 +127,20 @@ export function createMonkey(userid, name) {
     };
 }
 
-
 export function fetchUserMonkeys(userid) {
     return function(dispatch) {
         const url = `${USER_API_URL}/${userid}/monkeys`;
         const request = axios.get(url, {
-            headers: { authorization: `Bearer ${localStorage.getItem('token')}` }
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('token')}`
+            }
         });
         request
             .then(response => {
-                console.log("fetchUserMonkeys has RESPONSE", response.data.monkeys)
+                console.log(
+                    'fetchUserMonkeys has RESPONSE',
+                    response.data.monkeys
+                );
                 dispatch({
                     type: GET_USER_MONKEYS,
                     payload: response.data.monkeys
@@ -142,11 +158,16 @@ export function fetchUserCupcakes(userid) {
     return function(dispatch) {
         const url = `${USER_API_URL}/${userid}/cupcakes`;
         const request = axios.get(url, {
-            headers: { authorization: `Bearer ${localStorage.getItem('token')}` }
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('token')}`
+            }
         });
         request
             .then(response => {
-                console.log("fetchUserCupcakes has RESPONSE", response.data.cupcakes)
+                console.log(
+                    'fetchUserCupcakes has RESPONSE',
+                    response.data.cupcakes
+                );
                 dispatch({
                     type: GET_USER_CUPCAKES,
                     payload: response.data.events
@@ -161,8 +182,8 @@ export function fetchUserCupcakes(userid) {
 }
 
 export function authError(error) {
-  return {
-    type: AUTH_ERROR,
-    payload: error
-  }
+    return {
+        type: AUTH_ERROR,
+        payload: error
+    };
 }

@@ -10,11 +10,13 @@ import AddMonkeyForm from './add_monkey_form'
 
 class UserDashboard extends Component {
 
-
-    // handleSubmit({name}) {
-    //     console.log("handleSubmitMonkey with", {name})
-    //   //this.props.createMonkey({user, name})
-    // }
+    //const userid = this.props.user._id
+    handleSubmit({name}) {
+        console.log("handleSubmitMonkey with", {name})
+        console.log("userid is", this.props.user._id)
+        const userid = this.props.user._id
+      this.props.createMonkey({userid, name})
+    }
 
     render() {
         return (
@@ -27,7 +29,7 @@ class UserDashboard extends Component {
                     <div className="row">
                         <div className="col m6 s12">
                         <h4>Add a new monkey</h4>
-                        <AddMonkeyForm />
+                        <AddMonkeyForm onSubmit={this.handleSubmit.bind(this)} />
                         </div>
                         <div className="col m6 s12">Existing monkeys</div>
                     </div>

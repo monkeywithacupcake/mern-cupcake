@@ -6,18 +6,18 @@ import renderTextField from '../helpers/form_helpers';
 import { createMonkey } from '../../actions';
 
 class AddMonkeyForm extends Component {
-    onSubmit(values) {
-        console.log('trying to submit MONKEY');
-        // this.props.createMonkey(values, () =>{
-        //     this.props.history.push('/');
-        // });
-    }
+    // onSubmit(values) {
+    //     console.log('trying to submit MONKEY');
+    //     this.props.createMonkey(props.userid, values, () =>{
+    //         //this.props.history.push('/');
+    //     });
+    // }
     render() {
         const { handleSubmit } = this.props;
 
         return (
             <div className="section">
-                <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+                <form onSubmit={handleSubmit}>
                     <Field
                         label="Name"
                         name="name"
@@ -52,6 +52,6 @@ const validate = values => {
 export default reduxForm({
     form: 'addmonkey',
     validate
-})(AddMonkeyForm);
+})(connect(null, { createMonkey })(AddMonkeyForm));
 
 //})(connect(null, { createMonkey })(AddMonkeyForm));
