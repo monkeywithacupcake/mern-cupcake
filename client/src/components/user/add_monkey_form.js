@@ -52,4 +52,6 @@ const validate = values => {
 export default reduxForm({
     form: 'addmonkey',
     validate
-})(connect(null, { createMonkey })(AddMonkeyForm));
+})(AddMonkeyForm);
+
+//})(connect(null, { createMonkey })(AddMonkeyForm));

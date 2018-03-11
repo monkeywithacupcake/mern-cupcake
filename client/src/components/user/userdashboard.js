@@ -27,6 +27,7 @@ class UserDashboard extends Component {
                     <div className="row">
                         <div className="col m6 s12">
                         <h4>Add a new monkey</h4>
+                        <AddMonkeyForm />
                         </div>
                         <div className="col m6 s12">Existing monkeys</div>
                     </div>
@@ -46,8 +47,8 @@ class UserDashboard extends Component {
 function mapStateToProps(state) {
     const user = state.auth.user;
     const cupcakes = state.userdata.cupcakes;
-    const monkeys = state.userdata.cupcakes;
-    return { user: user };
+    const monkeys = state.userdata.monkeys;
+    return { user: user, monkeys: monkeys, cupcakes: cupcakes };
 }
 
 export default connect(mapStateToProps, actions)(UserDashboard);

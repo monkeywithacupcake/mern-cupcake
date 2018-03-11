@@ -8,6 +8,9 @@ class Landing extends Component {
                 <div className="section">
                 It is probably going to be a good day. As soon as you check on your monkeys and cupcakes.
                 </div>
+                <br/>
+                <br/>
+                <br/>
             </div>
         );
     }
