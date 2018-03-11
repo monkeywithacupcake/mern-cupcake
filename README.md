@@ -54,6 +54,9 @@ Currently, MERN Cupcake has a landing page, a signup form, and a signin form. Us
 #### Users go to a dashboard when log in is successful
 ![Dashboard Screenshot](/screenshots/userdash.png)
 
+#### Big Deal - if you see this, just go to the routhe `/signout` to clear the authenticated=true
+![Dashboard Screenshot](/screenshots/needtosignout.png)
+
 ### Contributing
 Please open issues, submit PRs, whatever.
 

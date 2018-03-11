@@ -1,42 +1,39 @@
 import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
-import  renderTextField  from '../helpers/form_helpers'
+import { connect } from 'react-redux';
+
+import renderTextField from '../helpers/form_helpers';
+import { createMonkey } from '../../actions';
 
 class AddMonkeyForm extends Component {
-    renderAlert() {
-        if (this.props.errorMessage) {
-            return (
-                <div className="alert alert-danger">
-                    <strong>Oops: </strong>
-                    {this.props.errorMessage}
-                </div>
-            );
-        }
+    onSubmit(values) {
+        console.log('trying to submit MONKEY');
+        // this.props.createMonkey(values, () =>{
+        //     this.props.history.push('/');
+        // });
     }
-
     render() {
         const { handleSubmit } = this.props;
 
         return (
-            <div className="container">
-                <div className="section col m8 offset-m2 s12">
-                    {this.renderAlert()}
-                    <form onSubmit={handleSubmit}>
+            <div className="section">
+                <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+                    <Field
+                        label="Name"
+                        name="name"
+                        placeholder="Fluffy"
+                        component={renderTextField}
+                        type="text"
+                    />
 
-                        <Field
-                            label="Name"
-                            name="name"
-                            placeholder="Fluffy"
-                            component={renderTextField}
-                            type="text"
-                        />
-
-                    <button className="btn-large dark-primary-color" type="submit">
-                            Add Monkey
-                            <i className="material-icons right">done</i>
-                        </button>
-                    </form>
-                </div>
+                    <button
+                        className="btn-large dark-primary-color"
+                        type="submit"
+                    >
+                        Add Monkey
+                        <i className="material-icons right">done</i>
+                    </button>
+                </form>
             </div>
         );
     }
@@ -46,9 +43,8 @@ const validate = values => {
     const errors = {};
 
     if (!values.name) {
-        errors.email = 'Please enter monkey name';
+        errors.name = 'Please enter monkey name';
     }
-
 
     return errors;
 };
@@ -56,4 +52,4 @@ const validate = values => {
 export default reduxForm({
     form: 'addmonkey',
     validate
-})(AddMonkeyForm);
+})(connect(null, { createMonkey })(AddMonkeyForm));

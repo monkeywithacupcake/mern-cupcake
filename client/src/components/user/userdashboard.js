@@ -5,13 +5,15 @@ import PropTypes from 'prop-types';
 import * as actions from '../../actions';
 import Cupcakes from './cupcakes';
 import Monkeys from './monkeys';
+import AddMonkeyForm from './add_monkey_form'
+
 
 class UserDashboard extends Component {
-    // componentWillMount() {
-    //     this.props.fetchUserCupcakes(this.props.user._id); // no user at this point!!
-    // }
-    // componentWillReceiveProps(nextProps) {
-    //     console.log('COMPONENT WILL RECEIVE props'); // NEVER CALLED!!
+
+
+    // handleSubmit({name}) {
+    //     console.log("handleSubmitMonkey with", {name})
+    //   //this.props.createMonkey({user, name})
     // }
 
     render() {
@@ -23,7 +25,9 @@ class UserDashboard extends Component {
                 <div className="section">
                     <h2>Monkeys</h2>
                     <div className="row">
-                        <div className="col m6 s12">Add a new monkey</div>
+                        <div className="col m6 s12">
+                        <h4>Add a new monkey</h4>
+                        </div>
                         <div className="col m6 s12">Existing monkeys</div>
                     </div>
                 </div>
@@ -47,3 +51,5 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, actions)(UserDashboard);
+
+//                        <AddMonkeyForm onSubmit={this.handleSubmit.bind(this)}/>
