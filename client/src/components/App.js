@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-
 // my main components
 // common components
 import Header from './common/header';
@@ -26,6 +25,11 @@ class App extends Component {
     componentDidMount() {
         console.log('App has this.props:', this.props);
     }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        console.log('shouldComponentUpdate');
+        return nextState !== this.state;
+    }
     renderMainContent() {
         console.log('App renderMainContent props:', this.props);
         if (this.props.authenticated) {
@@ -40,18 +44,18 @@ class App extends Component {
         return (
             <BrowserRouter>
                 <div>
-                        <Header />
-                        <Route exact path="/about" component={About} />
-                        <Route exact path="/signin" component={Signin} />
-                        <Route exact path="/signup" component={Signup} />
-                        <Route exact path="/signout" component={Signout} />
-                        <Route
-                            exact
-                            path="/"
-                            component={() => this.renderMainContent()}
-                        />
+                    <Header />
+                    <Route exact path="/about" component={About} />
+                    <Route exact path="/signin" component={Signin} />
+                    <Route exact path="/signup" component={Signup} />
+                    <Route exact path="/signout" component={Signout} />
+                    <Route
+                        exact
+                        path="/"
+                        component={() => this.renderMainContent()}
+                    />
 
-                        <Footer />
+                    <Footer />
                 </div>
             </BrowserRouter>
         );
