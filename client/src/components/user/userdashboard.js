@@ -48,13 +48,7 @@ class UserDashboard extends Component {
 
     renderMonkeys() {
         if (this.props.monkeys != undefined && this.props.monkeys.length > 0) {
-            return (
-                <ul>
-                    {this.props.monkeys.map((monkey, i) => (
-                        <li key={i}>{monkey.name}</li>
-                    ))}
-                </ul>
-            );
+            return <Monkeys monkeys={this.props.monkeys} />;
         }
     }
 
@@ -71,15 +65,17 @@ class UserDashboard extends Component {
                             <h4>Add a new monkey</h4>
                             <AddMonkeyForm onSubmit={this.handleSubmit} />
                         </div>
-                        <div className="col m6 s12">Existing monkeys</div>
-                        <button
-                            className="btn-large"
-                            onClick={this.handleGetMonkeys}
-                        >
-                            {' '}
-                            Get Monkeys
-                        </button>
-                        {this.renderMonkeys()}
+                        <div className="col m6 s12">
+                            <h4>Existing monkeys</h4>
+                            <button
+                                className="btn-large"
+                                onClick={this.handleGetMonkeys}
+                            >
+                                {' '}
+                                Get Monkeys
+                            </button>
+                            {this.renderMonkeys()}
+                        </div>
                     </div>
                 </div>
                 <div className="section">
@@ -104,3 +100,8 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps, actions)(UserDashboard);
 
 //<Monkeys monkeys={this.props.monkeys} />
+//<ul>
+//     {this.props.monkeys.map((monkey, i) => (
+//         <li key={i}>{monkey.name}</li>
+//     ))}
+// </ul>

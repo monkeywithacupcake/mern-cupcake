@@ -6,6 +6,7 @@ I was losing my mind with a real web application after several tutorials, so I b
  + Express as the server
  + React and Redux for the front-end
  + Node for the API
+ + Styling is with MaterializeCSS, but I want to shift to styled-components
 
 ### Goals for MERN Cupcake
 MERN cupcake is a test environment that eventually could be used for applications where users have their own nested data.
@@ -18,6 +19,7 @@ User : {email, password, _id}
 
 Users can have accounts, which are authenticated using a password with bcrypt. JSONWebTokens (JWT) are created on successful authorization and they allow the user to see the dashboard, and add monkeys and cupcakes.
 Monkeys are owned by Users. Cupcakes are always related to a particular Monkey.
+
 *Why are Monkeys and Cupcakes separate if they are nested?* : In a real application, we may need to fetch cupcakes independently of their monkeys and users. For example, we may want to let some other user buy a cupcake or frost a cupcake.
 
 ### Branches
@@ -68,7 +70,7 @@ Currently, MERN Cupcake has a landing page, a signup form, and a signin form. Us
 #### Sign in users with the Sign In form
 ![SignIn Form Screenshot](/screenshots/signinform.png)
 
-#### Users go to a dashboard when log in is successful. The dashboard shows the currently logged in user, allows adding monkeys, and will show monkeys.
+#### Users go to a dashboard when log in is successful. The dashboard shows the currently logged in user, allows adding monkeys, and will show monkeys as simple cards
 ![Dashboard Screenshot](/screenshots/userdash.png)
 
 #### Big Deal - if you see this, just go to the routhe `/signout` to clear the authenticated=true
