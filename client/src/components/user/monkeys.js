@@ -5,16 +5,17 @@ export default class Monkeys extends Component {
   render() {
     return (
         <ul>
-          {this.props.monkeys.map((monkey, i) => <li key={i}>{monkey.name}</li>)}
+        <li>SOMEDAY THIS WILL BE A MONKEY</li>
         </ul>
     )
   }
 }
  
 Monkeys.propTypes = {
-  monkeys: PropTypes.array.isRequired
+  monkeys: PropTypes.array
 }
 
+//{this.props.monkeys.map((monkey, i) => <li key={i}>{monkey.name}</li>)}
 
 // <div class="card blue-grey darken-1">
 //             <div class="card-content white-text">

@@ -152,7 +152,7 @@ exports.create_user_monkey = (req, res, next) => {
 };
 
 exports.get_user_monkeys = (req, res, next) => {
-    const userid = req.body.userID;
+    const userid = req.params.userID;
     Monkey.find({ user: userid })
         .exec()
         .then(docs => {

@@ -114,10 +114,10 @@ export function createMonkey({userid, name}) {
                     'createMonkey has RESPONSE',
                     response.data.createdMonkey
                 );
-                dispatch({
-                    type: GET_USER_MONKEYS,
-                    payload: response.data.createdMonkey
-                });
+                // dispatch({
+                //     type: GET_USER_MONKEYS,
+                //     payload: [response.data.createdMonkey]
+                // });
             })
             // If request is bad...
             // -Show an error to the user
@@ -127,12 +127,13 @@ export function createMonkey({userid, name}) {
     };
 }
 
-export function fetchUserMonkeys(userid) {
+export function fetchUserMonkeys({userid}) {
+    console.log('ACTION fetchUserMonkeys has:', userid);
     return function(dispatch) {
         const url = `${USER_API_URL}/${userid}/monkeys`;
         const request = axios.get(url, {
             headers: {
-                authorization: `Bearer ${localStorage.getItem('token')}`
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
         });
         request
@@ -154,12 +155,12 @@ export function fetchUserMonkeys(userid) {
     };
 }
 
-export function fetchUserCupcakes(userid) {
+export function fetchUserCupcakes({userid}) {
     return function(dispatch) {
         const url = `${USER_API_URL}/${userid}/cupcakes`;
         const request = axios.get(url, {
             headers: {
-                authorization: `Bearer ${localStorage.getItem('token')}`
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
         });
         request
