@@ -155,6 +155,38 @@ export function fetchUserMonkeys({userid}) {
     };
 }
 
+export function createCupcake({userid, monkeyid, color}) {
+    console.log('ACTION createCupcake has:', userid, monkeyid, color);
+    console.log(monkeyid)
+    console.log(color)
+    return function(dispatch) {
+        const url = `${USER_API_URL}/${userid}/monkey/${monkeyid}/cupcake/new`;
+
+        console.log(url);
+        const request = axios.post(url, {color}, {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+        request
+            .then(response => {
+                console.log(
+                    'createCupcake has RESPONSE',
+                    response.data.createdCupcake
+                );
+                // dispatch({
+                //     type: GET_USER_MONKEYS,
+                //     payload: [response.data.createdMonkey]
+                // });
+            })
+            // If request is bad...
+            // -Show an error to the user
+            .catch(() => {
+                console.log('error');
+            });
+    };
+}
+
 export function fetchUserCupcakes({userid}) {
     return function(dispatch) {
         const url = `${USER_API_URL}/${userid}/cupcakes`;
@@ -171,7 +203,7 @@ export function fetchUserCupcakes({userid}) {
                 );
                 dispatch({
                     type: GET_USER_CUPCAKES,
-                    payload: response.data.events
+                    payload: response.data.cupcakes
                 });
             })
             // If request is bad...

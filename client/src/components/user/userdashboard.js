@@ -6,12 +6,15 @@ import * as actions from '../../actions';
 import Cupcakes from './cupcakes';
 import Monkeys from './monkeys';
 import AddMonkeyForm from './add_monkey_form';
+import AddCupcakeForm from './add_cupcake_form';
 
 class UserDashboard extends Component {
     constructor(props) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleGetMonkeys = this.handleGetMonkeys.bind(this);
+        this.handleCupcakeSubmit = this.handleCupcakeSubmit.bind(this);
+        this.handleGetCupcakes = this.handleGetCupcakes.bind(this);
         //this.handleChange = this.handleChange.bind(this);
         //this.handleRefreshClick = this.handleRefreshClick.bind(this);
     }
@@ -19,9 +22,10 @@ class UserDashboard extends Component {
         const userid = this.props.user._id;
         if (userid != null) {
             this.props.fetchUserMonkeys({ userid });
+            this.props.fetchUserCupcakes({ userid });
         }
-        // dispatch(fetchMonkeysIfNeeded(userid));
     }
+
     componentDidUpdate(prevProps) {
         // if (this.props.selectedMonkey !== prevProps.selectedMonkey) {
         //     const { dispatch, selectedMonkey } = this.props;
@@ -49,6 +53,28 @@ class UserDashboard extends Component {
     renderMonkeys() {
         if (this.props.monkeys != undefined && this.props.monkeys.length > 0) {
             return <Monkeys monkeys={this.props.monkeys} />;
+        }
+    }
+
+    handleCupcakeSubmit({ color }) {
+        console.log('handleSubmitCupcake with', color);
+        const userid = this.props.user._id;
+        const monkeyid = this.props.monkeys[0]._id;
+        this.props.createCupcake({ userid, monkeyid, color });
+    }
+
+    handleGetCupcakes(e) {
+        e.preventDefault();
+        const userid = this.props.user._id;
+        this.props.fetchUserCupcakes({ userid });
+    }
+
+    renderCupcakes() {
+        if (
+            this.props.cupcakes != undefined &&
+            this.props.cupcakes.length > 0
+        ) {
+            return <Cupcakes cupcakes={this.props.cupcakes} />;
         }
     }
 
@@ -81,8 +107,23 @@ class UserDashboard extends Component {
                 <div className="section">
                     <h2>Cupcakes</h2>
                     <div className="row">
-                        <div className="col m6 s12">Add a new cupcake</div>
-                        <div className="col m6 s12">Existing cupcakes</div>
+                        <div className="col m6 s12">
+                            <h4>Add a new cupcake</h4>
+                            <AddCupcakeForm
+                                onSubmit={this.handleCupcakeSubmit}
+                            />
+                        </div>
+                        <div className="col m6 s12">
+                            <h4>Existing cupcakes</h4>
+                            <button
+                                className="btn-large"
+                                onClick={this.handleGetCupcakes}
+                            >
+                                {' '}
+                                Get Cupcakes
+                            </button>
+                            {this.renderCupcakes()}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -98,10 +139,3 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, actions)(UserDashboard);
-
-//<Monkeys monkeys={this.props.monkeys} />
-//<ul>
-//     {this.props.monkeys.map((monkey, i) => (
-//         <li key={i}>{monkey.name}</li>
-//     ))}
-// </ul>

@@ -188,7 +188,7 @@ exports.get_user_cupcakes = (req, res, next) => {
                 count: docs.length,
                 cupcakes: docs.map(doc => {
                     return {
-                        monkey: doc.monkey,
+                        monkey: doc.monkey.name,
                         color: doc.color,
                         status: doc.status,
                         _id: doc._id
