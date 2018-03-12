@@ -114,13 +114,8 @@ export function createMonkey({userid, name}) {
                     'createMonkey has RESPONSE',
                     response.data.createdMonkey
                 );
-                // dispatch({
-                //     type: GET_USER_MONKEYS,
-                //     payload: [response.data.createdMonkey]
-                // });
+                // should I call fetchUserMonkeys here to update with new monkey?
             })
-            // If request is bad...
-            // -Show an error to the user
             .catch(() => {
                 console.log('error');
             });
@@ -147,8 +142,6 @@ export function fetchUserMonkeys({userid}) {
                     payload: response.data.monkeys
                 });
             })
-            // If request is bad...
-            // -Show an error to the user
             .catch(() => {
                 console.log('error');
             });
@@ -174,9 +167,11 @@ export function createCupcake({userid, monkeyid, color}) {
                     'createCupcake has RESPONSE',
                     response.data.createdCupcake
                 );
+                // should I call fetchUserCupcakes here to update?
+                // should I dispatch an action that appends the new cupcake?
                 // dispatch({
-                //     type: GET_USER_MONKEYS,
-                //     payload: [response.data.createdMonkey]
+                //     type: GET_USER_CUPCAKES,
+                //     payload: [response.data.cupcakes]
                 // });
             })
             // If request is bad...
