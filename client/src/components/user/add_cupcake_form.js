@@ -9,8 +9,8 @@ class AddCupcakeForm extends Component {
 
 
     render() {
-        const { handleSubmit } = this.props;
-        console.log("add cupcake form props", this.props);
+        const { handleSubmit } = this.props; // no monkey
+        console.log("add cupcake form props", this.props); // this.props.monkey exists
         return (
             <div className="section">
                 <form onSubmit={handleSubmit}>
