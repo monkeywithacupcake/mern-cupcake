@@ -2,8 +2,9 @@
 ## MERN Stack
 I was losing my mind with a real web application after several tutorials, so I built this project.
 
-###ConnectCupToMonkey Branch issue
+### ConnectCupToMonkey Branch issue
 The add cupcake form is not unique and I don't have monkey mapped right somehow.
+
 ![Issue Screenshot](/screenshots/connectcuptomonkeyissue.png)
 
 
