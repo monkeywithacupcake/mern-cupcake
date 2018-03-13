@@ -5,12 +5,12 @@ export default class Cupcakes extends Component {
 
     render() {
         return (<div>
-            {this.props.cupcakes.map((cupcake) => (
-                <div className="card  yellow lighten-3">
+            {this.props.cupcakes.map((cupcake, i) => (
+                <div key={i} className="card  yellow lighten-3">
                     <div className="card-content">
                         <span className="card-title">{cupcake.color}</span>
                         <p>Cupcake Status: {cupcake.status}</p>
-                        <p>Monkey: {cupcake.monkey}</p>
+                        <p>Monkey: {cupcake.monkeyname}</p>
                     </div>
                     {this.renderCupcakes}
                 </div>

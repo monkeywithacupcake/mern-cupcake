@@ -2,7 +2,7 @@ import { GET_USER_CUPCAKES, GET_USER_MONKEYS } from '../actions/types';
 
 const initialUserData = [
     {
-        cupcakes: [{ color: '', monkey: '', status: '', _id: '' }],
+        cupcakes: [{ color: '', monkeyid: '', monkeyname: '', status: '', _id: '' }],
         monkeys: [{ name: '', user: '', _id: '' }]
     }
 ];
@@ -17,3 +17,5 @@ export default function userGetterReducer(state = initialUserData, action) {
             return state;
     }
 }
+
+// not sure about how constructing the cupcake data here because it does not match the cupcake schema!

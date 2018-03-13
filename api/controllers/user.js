@@ -180,7 +180,7 @@ exports.get_user_cupcakes = (req, res, next) => {
     const userid = req.params.userID;
     Cupcake.find({ user: userid })
         .select('color monkey status _id')
-        .populate('monkey', 'name')
+        .populate('monkey', 'name, _id')
         .exec()
         .then(docs => {
             // create whatever we want to return!
@@ -188,7 +188,8 @@ exports.get_user_cupcakes = (req, res, next) => {
                 count: docs.length,
                 cupcakes: docs.map(doc => {
                     return {
-                        monkey: doc.monkey.name,
+                        monkeyid: doc.monkey._id,
+                        monkeyname: doc.monkey.name,
                         color: doc.color,
                         status: doc.status,
                         _id: doc._id
