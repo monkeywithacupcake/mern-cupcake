@@ -8,20 +8,7 @@ export default class Monkeys extends Component {
 
         // this.handleCupcakeClick = this.handleCupcakeClick.bind(this); // eventually link them
     }
-    renderCupcakes() {
-        // does not work.
-        if (
-            this.props.cupcakes != undefined &&
-            this.props.cupcakes.length > 0
-        ) {
-            console.log("Monkeys is trying to render it's cupcakes");
 
-            return <MonkeysCupcakes cupcakes={this.props.cupcakes} />;
-        }
-        else {
-            console.log("Monkeys has no cupcakes")
-        }
-    }
     renderMonkeyCupcakes(mid){
         if (
             this.props.cupcakes !== undefined &&
@@ -36,13 +23,7 @@ export default class Monkeys extends Component {
         }
     }
     render() {
-        const cupcakes = this.props.cupcakes
-        let cupdiv = null;
-        if (cupcakes !== undefined && cupcakes.length > 0){
-            // need to map over monkeys and match to cupcakes
-            //const mcupcakes = cupcakes.filter(cupcake => cupcake.monkeyid == )
-            cupdiv = <MonkeysCupcakes cupcakes={this.props.cupcakes} />;
-        }
+
         return (
             <div>
                 {this.props.monkeys.map((monkey, i) => (

@@ -175,12 +175,10 @@ exports.get_user_monkeys = (req, res, next) => {
 };
 
 exports.get_user_cupcakes = (req, res, next) => {
-    // with no argument, find will return all elements!
-    // if no elements, will return EMPTY ARRAY []
     const userid = req.params.userID;
     Cupcake.find({ user: userid })
         .select('color monkey status _id')
-        .populate('monkey', 'name, _id')
+        .populate('monkey')
         .exec()
         .then(docs => {
             // create whatever we want to return!
