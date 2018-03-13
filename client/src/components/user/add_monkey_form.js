@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
 
-import renderTextField from '../helpers/form_helpers';
+import renderTextField from '../helpers/textfield';
 import { createMonkey } from '../../actions';
 
 class AddMonkeyForm extends Component {

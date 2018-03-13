@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
-import  renderTextField  from '../helpers/form_helpers'
+import  renderTextField  from '../helpers/textfield'
 
 class SignupForm extends Component {
     renderAlert() {

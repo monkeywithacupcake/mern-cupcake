@@ -2,14 +2,15 @@ import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
 
-import renderTextField from '../helpers/form_helpers';
+import renderTextField from '../helpers/textfield';
 import { createCupcake } from '../../actions';
 
 class AddCupcakeForm extends Component {
 
+
     render() {
         const { handleSubmit } = this.props;
-
+        console.log("add cupcake form props", this.props);
         return (
             <div className="section">
                 <form onSubmit={handleSubmit}>
@@ -20,10 +21,9 @@ class AddCupcakeForm extends Component {
                         component={renderTextField}
                         type="text"
                     />
-                    <button
-                        className="btn-large"
-                        type="submit"
-                    >
+
+
+                    <button className="btn-large" type="submit">
                         Add Cupcake
                         <i className="material-icons right">done</i>
                     </button>

@@ -162,6 +162,7 @@ exports.get_user_monkeys = (req, res, next) => {
                 monkeys: docs.map(doc => {
                     return {
                         name: doc.name,
+                        user: doc.user,
                         _id: doc._id
                     };
                 })
