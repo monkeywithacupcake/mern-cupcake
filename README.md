@@ -1,5 +1,11 @@
+
 ## MERN Stack
 I was losing my mind with a real web application after several tutorials, so I built this project.
+
+###ConnectCupToMonkey Branch issue
+The add cupcake form is not unique and I don't have monkey mapped right somehow.
+![Issue Screenshot](/screenshots/connectcuptomonkeyissue.png)
+
 
 **Stack**
  + MongoDB for storage w Mongoose for communications
@@ -25,6 +31,7 @@ Monkeys are owned by Users. Cupcakes are always related to a particular Monkey.
 ### Branches
 The master branch will always be the most complete working copy.
 Additional feature branches are created as progress is made on different components of the application. Once they are merged into the master, they are deleted.
+
 
 ### Usage
 
