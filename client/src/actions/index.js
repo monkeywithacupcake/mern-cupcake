@@ -114,10 +114,10 @@ export function createMonkey({userid, name}) {
                     'createMonkey has RESPONSE',
                     response.data.createdMonkey
                 );
-                dispatch({
-                    type: ADD_USER_MONKEY,
-                    payload: [response.data.createdMonkey]
-                });
+                // dispatch({
+                //     type: ADD_USER_MONKEY,
+                //     payload: [response.data.createdMonkey]
+                // });
             })
             // If request is bad...
             // -Show an error to the user
@@ -174,10 +174,10 @@ export function createCupcake({userid, monkeyid, color}) {
                     'createCupcake has RESPONSE',
                     response.data.createdCupcake
                 );
-                dispatch({ // should immediately update cupcakes
-                    type: ADD_USER_CUPCAKE,
-                    payload: [response.data.createdCupcake]
-                });
+                // dispatch({ // should immediately update cupcakes
+                //     type: ADD_USER_CUPCAKE,
+                //     payload: [response.data.createdCupcake]
+                // });
             })
             // If request is bad...
             // -Show an error to the user

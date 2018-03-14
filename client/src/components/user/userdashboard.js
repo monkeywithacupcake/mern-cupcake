@@ -24,6 +24,7 @@ class UserDashboard extends Component {
             this.props.fetchUserMonkeys({ userid });
             this.props.fetchUserCupcakes({ userid });
         }
+
     }
 
     componentDidUpdate(prevProps) {
@@ -31,6 +32,8 @@ class UserDashboard extends Component {
         //     const { dispatch, selectedMonkey } = this.props;
         //     dispatch(fetchCupcakesIfNeeded(selectedMonkey));
         // }
+        console.log("Dash Monkeys:", this.props.monkeys)
+        console.log("Dash Cupcakes:", this.props.cupcakes)
     }
     // handleChange(nextMonkey) {
     //     this.props.dispatch(selectMonkey(nextMonkey));
@@ -136,8 +139,8 @@ function mapStateToProps(state) {
     return {
         auth: state.auth,
         user: state.auth.user,
-        monkeys: state.monkeys.monkeys,
-        cupcakes: state.cupcakes.cupcakes
+        monkeys: state.userData.monkeys,
+        cupcakes: state.userData.cupcakes
         // state: state,
         // authenticated: state.auth.authenticated
     };

@@ -68,8 +68,8 @@ function mapStateToProps(state) {
     return {
         auth: state.auth,
         user: state.auth.user,
-        monkeys: state.monkeys.monkeys,
-        cupcakes: state.cupcakes.cupcakes
+        monkeys: state.userData.monkeys,
+        cupcakes: state.userData.cupcakes
         // state: state,
         // authenticated: state.auth.authenticated
     };

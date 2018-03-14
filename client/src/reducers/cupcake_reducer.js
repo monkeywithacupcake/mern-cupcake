@@ -5,7 +5,7 @@ const initialCupcakes = [];
 export default function cupcakeReducer(state = initialCupcakes, action) {
     switch (action.type) {
         case GET_USER_CUPCAKES:
-            return { ...state, cupcakes: action.payload };
+            return { ...state, ...action.payload };
         case ADD_USER_CUPCAKE:
             return [
                 ...state,

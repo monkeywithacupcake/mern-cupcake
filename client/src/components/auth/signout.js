@@ -9,7 +9,9 @@ class Signout extends Component {
     render() {
         return (
             <div className="container">
+                <div className="section">
                 Bye Bye
+                </div>
                 <br />
                 <br />
                 <br />
