@@ -52,8 +52,8 @@ class UserDashboard extends Component {
 
     renderMonkeys() {
         if (this.props.monkeys != undefined && this.props.monkeys.length > 0) {
-        
-            return <Monkeys monkeys={this.props.monkeys} cupcakes={this.props.cupcakes}/>;
+
+            return <Monkeys monkeys={this.props.monkeys} cupcakes={this.props.cupcakes} onNewCupcake={this.handleCupcakeSubmit}/>;
         }
     }
 

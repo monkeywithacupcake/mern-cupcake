@@ -8,9 +8,11 @@ import { createCupcake } from '../../actions';
 class AddCupcakeForm extends Component {
 
 
+
     render() {
         const { handleSubmit } = this.props; // no monkey
-        console.log("add cupcake form props", this.props); // this.props.monkey exists
+
+        console.log('add cupcake form props', this.props); // this.props.monkey exists
         return (
             <div className="section">
                 <form onSubmit={handleSubmit}>
@@ -21,7 +23,6 @@ class AddCupcakeForm extends Component {
                         component={renderTextField}
                         type="text"
                     />
-
 
                     <button className="btn-large" type="submit">
                         Add Cupcake
@@ -47,3 +48,20 @@ export default reduxForm({
     form: 'addcupcake',
     validate
 })(connect(null, { createCupcake })(AddCupcakeForm));
+
+// constructor(props){
+//     super(props)
+//     this.state = {
+//         monkey: this.props.monkey
+//         formData: {}
+//     }
+// }
+//
+// handleInputChange = ({ target: { name,value } }) => {
+//     this.setState({
+//         formData: {
+//             ...this.state.formData,
+//             [name]: value
+//         }
+//     })
+// }

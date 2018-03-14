@@ -10,17 +10,16 @@ export default class Monkeys extends Component {
         this.handleCupcakeSubmit = this.handleCupcakeSubmit.bind(this);
     }
 
-    handleCupcakeSubmit({ monkey, color }) {
-        console.log('trying to submit a cupcake');
-        console.log(this.state);
-        console.log('handleSubmitCupcake with', monkey, color);
-        // const userid = this.props.monkey.user;
-        // const mid = this.props.monkey._id;
-        // Eventually, I want to be able to have the userid and monkeyid - both of which are in the monkey props
-        //this.props.createCupcake({ userid, mid, color });
-    }
+
+
+    handleCupcakeSubmit() {
+    console.log(this.props)
+     }
 
     renderCupcakeForm(monkey) {
+
+        //let handler = () => this.handleCupcakeSubmit(monkey)
+
         console.log("Monkeys is trying to render it's cupcakes");
         return (
             <AddCupcakeForm
@@ -48,6 +47,7 @@ export default class Monkeys extends Component {
         return (
             <div>
                 {this.props.monkeys.map((monkey, i) => (
+
                     <div key={i} className="card blue-grey darken-1">
                         <div className="card-content white-text">
                             <span className="card-title">{monkey.name}</span>
@@ -65,3 +65,13 @@ Monkeys.propTypes = {
     monkeys: PropTypes.array,
     cupcakes: PropTypes.array
 };
+
+// handleCupcakeSubmit({ monkey, color }) {
+// //     console.log('trying to submit a cupcake');
+// //     console.log(this.state);
+// console.log('handleSubmitCupcake with', monkey, color);
+// //     // const userid = this.props.monkey.user;
+// //     // const mid = this.props.monkey._id;
+// //     // Eventually, I want to be able to have the userid and monkeyid - both of which are in the monkey props
+// //     //this.props.createCupcake({ userid, mid, color });
+//  }
