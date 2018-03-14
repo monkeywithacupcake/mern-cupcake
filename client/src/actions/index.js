@@ -78,13 +78,13 @@ export function signupUser({ email, password, passwordmatch, name }) {
                     'ACTION CREATOR RESPONSE FROM API: ',
                     response.data
                 );
-                // -if request is good, we need to update state to indicate user is authenticated
-                // dispatch({
-                //     type: AUTH_USER, payload: response.data.createdUser
-                // });
-                // console.log(
-                //     'action creator response has just authenticated the user!'
-                // );
+                //-if request is good, we need to update state to indicate user is authenticated
+                dispatch({
+                    type: AUTH_USER, payload: response.data.createdUser
+                });
+                console.log(
+                    'action creator response has just authenticated the user!'
+                );
             })
 
             // If request is bad...
@@ -114,10 +114,10 @@ export function createMonkey({userid, name}) {
                     'createMonkey has RESPONSE',
                     response.data.createdMonkey
                 );
-                // dispatch({
-                //     type: GET_USER_MONKEYS,
-                //     payload: [response.data.createdMonkey]
-                // });
+                dispatch({
+                    type: ADD_USER_MONKEY,
+                    payload: [response.data.createdMonkey]
+                });
             })
             // If request is bad...
             // -Show an error to the user
@@ -174,10 +174,10 @@ export function createCupcake({userid, monkeyid, color}) {
                     'createCupcake has RESPONSE',
                     response.data.createdCupcake
                 );
-                // dispatch({
-                //     type: GET_USER_MONKEYS,
-                //     payload: [response.data.createdMonkey]
-                // });
+                dispatch({ // should immediately update cupcakes
+                    type: ADD_USER_CUPCAKE,
+                    payload: [response.data.createdCupcake]
+                });
             })
             // If request is bad...
             // -Show an error to the user
@@ -201,6 +201,7 @@ export function fetchUserCupcakes({userid}) {
                     'fetchUserCupcakes has RESPONSE',
                     response.data.cupcakes
                 );
+                // need to mutate cupcakes into a cupcakesById kinda thing?
                 dispatch({
                     type: GET_USER_CUPCAKES,
                     payload: response.data.cupcakes

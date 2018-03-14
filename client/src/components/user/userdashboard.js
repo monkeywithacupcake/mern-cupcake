@@ -131,11 +131,16 @@ class UserDashboard extends Component {
     }
 }
 
+
 function mapStateToProps(state) {
-    const user = state.auth.user;
-    const cupcakes = state.userdata.cupcakes;
-    const monkeys = state.userdata.monkeys;
-    return { user: user, monkeys: monkeys, cupcakes: cupcakes };
+    return {
+        auth: state.auth,
+        user: state.auth.user,
+        monkeys: state.monkeys.monkeys,
+        cupcakes: state.cupcakes.cupcakes
+        // state: state,
+        // authenticated: state.auth.authenticated
+    };
 }
 
 export default connect(mapStateToProps, actions)(UserDashboard);

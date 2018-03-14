@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as actionCreators from '../actions';
 
 // my main components
 // common components
@@ -32,7 +34,7 @@ class App extends Component {
     }
     renderMainContent() {
         console.log('App renderMainContent props:', this.props);
-        if (this.props.authenticated) {
+        if (this.props.auth.authenticated) {
             console.log("I'm totally going to show auth");
             return <UserDashboard />;
         } else {
@@ -64,12 +66,57 @@ class App extends Component {
 
 function mapStateToProps(state) {
     return {
-        state: state,
-        authenticated: state.auth.authenticated
+        auth: state.auth,
+        user: state.auth.user,
+        monkeys: state.monkeys.monkeys,
+        cupcakes: state.cupcakes.cupcakes
+        // state: state,
+        // authenticated: state.auth.authenticated
     };
 }
 
-export default connect(mapStateToProps)(App);
+function mapDispachToProps(dispatch) {
+  return bindActionCreators(actionCreators, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispachToProps)(App);
+
+// import { bindActionCreators } from 'redux';
+// import { connect } from 'react-redux';
+// import * as actionCreators from '../actions/actionCreators';
+// import Main from './Main';
+//
+// function mapStateToProps(state) {
+//   return {
+//     posts: state.posts,
+//     comments: state.comments
+//   }
+// }
+//
+// function mapDispachToProps(dispatch) {
+//   return bindActionCreators(actionCreators, dispatch);
+// }
+//
+// const App = connect(mapStateToProps, mapDispachToProps)(Main);
+//
+// export default App;
+
+// const Main = React.createClass({
+//   render() {
+//     return (
+//       <div>
+//         <h1>
+//           <Link to="/">Reduxstagram</Link>
+//         </h1>
+//         {React.cloneElement({...this.props}.children, {...this.props})}
+//       </div>
+//     )
+//   }
+// });
+//
+// export default Main;
+
+
 
 //<Route path="*" component={NotFound} />
 // <Route exact

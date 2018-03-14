@@ -179,8 +179,7 @@ exports.get_user_cupcakes = (req, res, next) => {
     // if no elements, will return EMPTY ARRAY []
     const userid = req.params.userID;
     Cupcake.find({ user: userid })
-        .select('color monkey status _id')
-        .populate('monkey', 'name')
+        .select('color monkey status _id') // don't need user because this is a user lookup
         .exec()
         .then(docs => {
             // create whatever we want to return!
@@ -188,7 +187,7 @@ exports.get_user_cupcakes = (req, res, next) => {
                 count: docs.length,
                 cupcakes: docs.map(doc => {
                     return {
-                        monkey: doc.monkey.name,
+                        monkey: doc.monkey,
                         color: doc.color,
                         status: doc.status,
                         _id: doc._id
@@ -234,7 +233,7 @@ exports.create_user_cupcake = (req, res, next) => {
                 res.status(201).json({
                     message: 'cupcake created',
                     createdCupcake: {
-                        monkey: result.monkey,
+                        monkey: monkeyid,
                         color: result.color,
                         status: result.status,
                         _id: result._id
