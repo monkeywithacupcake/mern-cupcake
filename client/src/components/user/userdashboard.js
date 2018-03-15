@@ -15,8 +15,6 @@ class UserDashboard extends Component {
         this.handleGetMonkeys = this.handleGetMonkeys.bind(this);
         this.handleCupcakeSubmit = this.handleCupcakeSubmit.bind(this);
         this.handleGetCupcakes = this.handleGetCupcakes.bind(this);
-        //this.handleChange = this.handleChange.bind(this);
-        //this.handleRefreshClick = this.handleRefreshClick.bind(this);
     }
     componentDidMount() {
         const userid = this.props.user._id;
@@ -24,7 +22,6 @@ class UserDashboard extends Component {
             this.props.fetchUserMonkeys({ userid });
             this.props.fetchUserCupcakes({ userid });
         }
-
     }
 
     componentDidUpdate(prevProps) {
@@ -32,8 +29,8 @@ class UserDashboard extends Component {
         //     const { dispatch, selectedMonkey } = this.props;
         //     dispatch(fetchCupcakesIfNeeded(selectedMonkey));
         // }
-        console.log("Dash Monkeys:", this.props.monkeys)
-        console.log("Dash Cupcakes:", this.props.cupcakes)
+        console.log('Dash Monkeys:', this.props.monkeys);
+        console.log('Dash Cupcakes:', this.props.cupcakes);
     }
     // handleChange(nextMonkey) {
     //     this.props.dispatch(selectMonkey(nextMonkey));
@@ -55,7 +52,12 @@ class UserDashboard extends Component {
 
     renderMonkeys() {
         if (this.props.monkeys != undefined && this.props.monkeys.length > 0) {
-            return <Monkeys monkeys={this.props.monkeys} cupcakes={this.props.cupcakes}/>;
+            return (
+                <Monkeys
+                    monkeys={this.props.monkeys}
+                    cupcakes={this.props.cupcakes}
+                />
+            );
         }
     }
 
@@ -72,6 +74,20 @@ class UserDashboard extends Component {
         this.props.fetchUserCupcakes({ userid });
     }
 
+    renderAddCupcakeForm() {
+        if (this.props.monkeys != undefined && this.props.monkeys.length > 0) {
+            return (
+                <div className="col m6 s12">
+                    <h4>Add a new cupcake</h4>
+                    <AddCupcakeForm
+                        onSubmit={this.handleCupcakeSubmit}
+                        monkeys={this.props.monkeys}
+                    />
+                </div>
+            );
+        }
+    }
+
     renderCupcakes() {
         if (
             this.props.cupcakes != undefined &&
@@ -82,58 +98,54 @@ class UserDashboard extends Component {
     }
 
     render() {
+        const name = this.props.user.name
         return (
             <div className="container">
                 <div className="section">
-                    <h1>Hi: {this.props.user.name}</h1>
+                    <div className="row valign-wrapper">
+                        <div className="col m6 s12">
+                            <h1>Hi, {name[0].toUpperCase() + name.substr(1)}</h1>
+                        </div>
+                        <div className="col m3 s6 center">
+                            <button
+                                className="btn-large"
+                                onClick={this.handleGetMonkeys}
+                            >
+                                Refresh Monkeys
+                            </button>
+                        </div>
+                        <div className="col m3 s6 center">
+                            <button
+                                className="btn-large"
+                                onClick={this.handleGetCupcakes}
+                            >
+                                Refresh Cupcakes
+                            </button>
+                        </div>
+                    </div>
                 </div>
+
                 <div className="section">
-                    <h2>Monkeys</h2>
                     <div className="row">
                         <div className="col m6 s12">
                             <h4>Add a new monkey</h4>
                             <AddMonkeyForm onSubmit={this.handleSubmit} />
                         </div>
-                        <div className="col m6 s12">
-                            <h4>Existing monkeys</h4>
-                            <button
-                                className="btn-large"
-                                onClick={this.handleGetMonkeys}
-                            >
-                                {' '}
-                                Get Monkeys
-                            </button>
-                            {this.renderMonkeys()}
-                        </div>
+                        {this.renderAddCupcakeForm()}
                     </div>
                 </div>
                 <div className="section">
+                    <h2>Monkeys</h2>
+                    <div className="row">{this.renderMonkeys()}</div>
+                </div>
+                <div className="section">
                     <h2>Cupcakes</h2>
-                    <div className="row">
-                        <div className="col m6 s12">
-                            <h4>Add a new cupcake</h4>
-                            <AddCupcakeForm
-                                onSubmit={this.handleCupcakeSubmit}
-                            />
-                        </div>
-                        <div className="col m6 s12">
-                            <h4>Existing cupcakes</h4>
-                            <button
-                                className="btn-large"
-                                onClick={this.handleGetCupcakes}
-                            >
-                                {' '}
-                                Get Cupcakes
-                            </button>
-                            {this.renderCupcakes()}
-                        </div>
-                    </div>
+                    <div className="row">{this.renderCupcakes()}</div>
                 </div>
             </div>
         );
     }
 }
-
 
 function mapStateToProps(state) {
     return {
