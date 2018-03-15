@@ -61,10 +61,9 @@ class UserDashboard extends Component {
         }
     }
 
-    handleCupcakeSubmit({ color }) {
-        console.log('handleSubmitCupcake with', color);
+    handleCupcakeSubmit({ monkeyid, color }) {
+        console.log('handleSubmitCupcake with', monkeyid, color);
         const userid = this.props.user._id;
-        const monkeyid = this.props.monkeys[0]._id;
         this.props.createCupcake({ userid, monkeyid, color });
     }
 

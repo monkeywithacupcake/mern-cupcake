@@ -7,27 +7,6 @@ import renderTextField from '../helpers/form_helpers';
 import { createCupcake } from '../../actions';
 
 class AddCupcakeForm extends Component {
-    renderMonkeyChoices() {
-        console.log('renderMonkeyChoices');
-        if (this.props.monkeys != undefined && this.props.monkeys.length > 0) {
-            console.log('renderMonkeyChoices has monkeys!!!');
-            const monkeys = this.props.monkeys;
-            return (
-                <Field label="Monkey" name="monkey" component="select">
-                    <option />
-                    <option key="1" value="test">
-                        {' '}
-                        TEST{' '}
-                    </option>
-                    {monkeys.map((monkey, i) => (
-                        <option key={monkey._id} value={monkey._id}>
-                            {monkey.name}
-                        </option>
-                    ))}
-                </Field>
-            );
-        }
-    }
 
     render() {
         const { handleSubmit } = this.props;
@@ -42,7 +21,8 @@ class AddCupcakeForm extends Component {
                         component={renderTextField}
                         type="text"
                     />
-                    <Field label="Monkey" name="monkey" component="select">
+
+                    <Field label="Monkey" name="monkeyid" component="select" type="select" className="browser-default">
                         <option value="">Select a monkey...</option>
                         {this.props.monkeys.map(mon => (
                             <option value={mon._id} key={mon._id}>
@@ -50,17 +30,6 @@ class AddCupcakeForm extends Component {
                             </option>
                         ))}
                     </Field>
-                    <div>
-                        <label>Favorite Color</label>
-                        <div>
-                            <Field name="favoriteColor" component="select">
-                                <option />
-                                <option value="ff0000">Red</option>
-                                <option value="00ff00">Green</option>
-                                <option value="0000ff">Blue</option>
-                            </Field>
-                        </div>
-                    </div>
 
                     <button className="btn-large" type="submit">
                         Add Cupcake
@@ -92,3 +61,25 @@ export default reduxForm({
 })(connect(null, { createCupcake })(AddCupcakeForm));
 
 // {this.renderMonkeyChoices}
+
+// renderMonkeyChoices() {
+//     console.log('renderMonkeyChoices');
+//     if (this.props.monkeys != undefined && this.props.monkeys.length > 0) {
+//         console.log('renderMonkeyChoices has monkeys!!!');
+//         const monkeys = this.props.monkeys;
+//         return (
+//             <Field label="Monkey" name="monkey" component="select">
+//                 <option />
+//                 <option key="1" value="test">
+//                     {' '}
+//                     TEST{' '}
+//                 </option>
+//                 {monkeys.map((monkey, i) => (
+//                     <option key={monkey._id} value={monkey._id}>
+//                         {monkey.name}
+//                     </option>
+//                 ))}
+//             </Field>
+//         );
+//     }
+// }
