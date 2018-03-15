@@ -13,7 +13,7 @@ export default class Monkeys extends Component {
             );
             console.log('found cupcakes:', mc);
             return (
-                <div className="card-action">
+                <div className="row">
                     {mc.map((cupcake, i) => (
                         <a className="col s4" key={i} href={`#${cupcake.monkey}${cupcake.color}`}>
                             {cupcake.color}
@@ -28,14 +28,22 @@ export default class Monkeys extends Component {
     render() {
         console.log('Monkeys has:', this.props.monkeys);
         return (
-            <div className="col s12 m4 l3">
+            <div>
                 {this.props.monkeys.map((monkey, i) => (
-                    <div key={i} className="card blue-grey darken-1 ">
+                    <div key={i} className="col s12 m6 l4">
+                    <div className="card blue-grey darken-1 ">
                         <div className="card-content white-text">
                             <span className="card-title">{monkey.name}</span>
-                            <p>I am a monkey card</p>
+                            This monkey has cupcakes:
+                            {this.renderMonkeyCupcakes(monkey._id)}
                         </div>
-                        {this.renderMonkeyCupcakes(monkey._id)}
+
+                        <div className="card-action">
+                                <a href="#">
+                                    New Cupcake
+                                </a>
+                        </div>
+                    </div>
                     </div>
                 ))}
             </div>

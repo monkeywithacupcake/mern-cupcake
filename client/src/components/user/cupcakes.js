@@ -5,16 +5,20 @@ export default class Cupcakes extends Component {
         return (
             <div>
                 {this.props.cupcakes.map((cupcake, i) => (
-                    <div
-                        id={cupcake.monkey + cupcake.color}
-                        key={i}
-                        className="card  yellow lighten-3"
-                    >
-                        <div className="card-content">
-                            <span className="card-title">{cupcake.color}</span>
-                            <p>Cupcake Status: {cupcake.status}</p>
+                    <div key={i} className="col s12 m6 l4">
+                        <div
+                            id={cupcake.monkey + cupcake.color}
+
+                            className="card  yellow lighten-3"
+                        >
+                            <div className="card-content">
+                                <span className="card-title">
+                                    {cupcake.color}
+                                </span>
+                                <p>Cupcake Status: {cupcake.status}</p>
+                            </div>
+                            {this.renderCupcakes}
                         </div>
-                        {this.renderCupcakes}
                     </div>
                 ))}
             </div>
