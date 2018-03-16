@@ -62,7 +62,7 @@ npm run dev
 Navigate to `localhost:3000` in your browser. Watch detailed redux logs in the javascript console
 
 ### Components
-Currently, MERN Cupcake has a landing page, a signup form, and a signin form. Users can log out by clicking the signout. There is no user content yet. That is next.
+Currently, MERN Cupcake has a landing page, a signup form, and a signin form. Users can log out by clicking the signout. Once a user is authenticated, they see the dashboard.
 
 #### Add users to the db with the Sign Up form
 ![SignUp Form Screenshot](/screenshots/signupform.png)
@@ -70,10 +70,10 @@ Currently, MERN Cupcake has a landing page, a signup form, and a signin form. Us
 #### Sign in users with the Sign In form
 ![SignIn Form Screenshot](/screenshots/signinform.png)
 
-#### Users go to a dashboard when log in is successful. The dashboard shows the currently logged in user, allows adding monkeys, and will show monkeys as simple cards
+#### Users go to a dashboard when log in is successful. The dashboard shows the currently logged in user, allows adding monkeys, allows adding cupcakes to monkeys, and shows monkeys with their cupcakes in cards and cupcakes alone in cards. 
 ![Dashboard Screenshot](/screenshots/userdash.png)
 
-#### Big Deal - if you see this, just go to the routhe `/signout` to clear the authenticated=true
+#### Big Deal - if you see this, just go to the routh `/signout` to clear the authenticated=true. We can fix this by adding a 'go find the user from the token' but that has not been added yet.
 ![Dashboard Screenshot](/screenshots/needtosignout.png)
 
 ### Contributing
