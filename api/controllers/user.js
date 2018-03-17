@@ -20,7 +20,10 @@ exports.find_user = (req, res, next) => {
             }
             res.status(200).json({
                 message: 'Found a User',
-                foundUser: user
+                foundUser: {
+                    id: user._id,
+                    name: user.name
+                }
             });
         })
         .catch(err => {
@@ -71,10 +74,8 @@ exports.signup_user = (req, res, next) => {
                                     message: 'creating a new user',
                                     token: token,
                                     createdUser: {
-                                        email: result.email,
                                         id: result._id,
                                         name: result.name,
-                                        password: result.password
                                     }
                                 });
                             })
@@ -122,7 +123,10 @@ exports.login_user = (req, res, next) => {
                             );
                             return res.status(200).json({
                                 message: 'Auth successful',
-                                user: user[0], // added 201803
+                                loggedinUser: {
+                                    id: user[0]._id,
+                                    name: user[0].name
+                                }, // added 201803
                                 token: token
                             });
                         }

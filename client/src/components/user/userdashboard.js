@@ -17,13 +17,13 @@ class UserDashboard extends Component {
     }
     async componentDidMount() {
         if (this.props.user != undefined) {
-            const userid = this.props.user._id;
+            const userid = this.props.user.id;
             this.props.fetchUserMonkeys({ userid });
             this.props.fetchUserCupcakes({ userid });
         } else {
             try {
                 await this.props.findUser();
-                const userid = this.props.user._id;
+                const userid = this.props.user.id;
                 this.props.fetchUserMonkeys({ userid });
                 this.props.fetchUserCupcakes({ userid });
             } catch (error) {console.log(error)}
@@ -62,14 +62,14 @@ class UserDashboard extends Component {
 
     handleSubmit({ name }) {
         console.log('handleSubmitMonkey with', { name });
-        console.log('userid is', this.props.user._id);
-        const userid = this.props.user._id;
+        console.log('userid is', this.props.user.id);
+        const userid = this.props.user.id;
         this.props.createMonkey({ userid, name });
     }
 
     handleRefresh(e) {
         e.preventDefault();
-        const userid = this.props.user._id;
+        const userid = this.props.user.id;
         this.props.fetchUserMonkeys({ userid });
         this.props.fetchUserCupcakes({ userid });
     }
@@ -87,7 +87,7 @@ class UserDashboard extends Component {
 
     handleCupcakeSubmit({ monkeyid, color }) {
         console.log('handleSubmitCupcake with', monkeyid, color);
-        const userid = this.props.user._id;
+        const userid = this.props.user.id;
         this.props.createCupcake({ userid, monkeyid, color });
     }
 
