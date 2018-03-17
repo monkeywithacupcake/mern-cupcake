@@ -7,9 +7,30 @@ const User = require('../models/user');
 const Monkey = require('../models/monkey');
 const Cupcake = require('../models/cupcake');
 
+exports.find_user = (req, res, next) => {
+    console.log('trying to find user', res.locals.user);
+    User.findById(res.locals.user.userId)
+        .exec()
+        .then(user => {
+            console.log('user', user);
+            if (!user) {
+                return res.status(404).json({
+                    message: 'No User'
+                });
+            }
+            res.status(200).json({
+                message: 'Found a User',
+                foundUser: user
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({ error: err });
+        });
+};
 
 exports.signup_user = (req, res, next) => {
-    console.log("try to signupuser")
+    console.log('try to signupuser');
     User.find({ email: req.body.email })
         .exec()
         .then(user => {
@@ -120,7 +141,7 @@ exports.login_user = (req, res, next) => {
 
 exports.create_user_monkey = (req, res, next) => {
     const userid = req.params.userID;
-    console.log("Made it to the API for create_user_monkey");
+    console.log('Made it to the API for create_user_monkey');
     User.findById(userid)
         .then(user => {
             if (!user) {

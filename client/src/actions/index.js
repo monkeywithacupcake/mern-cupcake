@@ -19,6 +19,36 @@ export function signoutUser() {
     };
 }
 
+export function findUser() {
+    return function(dispatch) {
+        const url = `${USER_API_URL}/finduser`;
+
+        console.log(url);
+        const request = axios.get(url, {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+        request
+            .then(response => {
+                console.log(
+                    'findUser has RESPONSE',
+                    response.data.foundUser
+                );
+                dispatch({
+                    type: FETCH_USER,
+                    payload: response.data.foundUser
+                });
+            })
+            // If request is bad...
+            // -Show an error to the user
+            .catch(() => {
+                console.log('error');
+            });
+    };
+}
+
+
 export function signinUser({ email, password }) {
     console.log('ACTION CREATOR signinUser running with:', email, password);
 

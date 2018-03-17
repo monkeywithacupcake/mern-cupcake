@@ -26,6 +26,7 @@ import About from './common/about';
 class App extends Component {
     componentDidMount() {
         console.log('App has this.props:', this.props);
+
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -35,6 +36,7 @@ class App extends Component {
     renderMainContent() {
         console.log('App renderMainContent props:', this.props);
         if (this.props.auth.authenticated) {
+            this.props.findUser();
             console.log("I'm totally going to show auth");
             return <UserDashboard />;
         } else {

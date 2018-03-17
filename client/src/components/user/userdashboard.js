@@ -17,10 +17,13 @@ class UserDashboard extends Component {
         this.handleGetCupcakes = this.handleGetCupcakes.bind(this);
     }
     componentDidMount() {
-        const userid = this.props.user._id;
-        if (userid != null) {
+        if (this.props.user != undefined) {
+            const userid = this.props.user._id;
+            const name = this.props.user.name;
             this.props.fetchUserMonkeys({ userid });
             this.props.fetchUserCupcakes({ userid });
+        } else {
+            this.props.findUser();
         }
     }
 
@@ -29,6 +32,7 @@ class UserDashboard extends Component {
         //     const { dispatch, selectedMonkey } = this.props;
         //     dispatch(fetchCupcakesIfNeeded(selectedMonkey));
         // }
+        console.log('user:', this.props.user);
         console.log('Dash Monkeys:', this.props.monkeys);
         console.log('Dash Cupcakes:', this.props.cupcakes);
     }
@@ -96,14 +100,26 @@ class UserDashboard extends Component {
         }
     }
 
+    renderName() {
+        if (this.props.user != undefined) {
+            const name = this.props.user.name;
+            return (
+                <h1>
+                    Hi, {name[0].toUpperCase() + name.substr(1)}
+                </h1>
+            )
+        } else {
+            console.log("trying to render Name but user is undefined")
+        }
+    }
+
     render() {
-        const name = this.props.user.name
         return (
             <div className="container">
                 <div className="section">
                     <div className="row valign-wrapper">
                         <div className="col m6 s12">
-                            <h1>Hi, {name[0].toUpperCase() + name.substr(1)}</h1>
+                            {this.renderName()}
                         </div>
                         <div className="col m3 s6 center">
                             <button

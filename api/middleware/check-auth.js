@@ -11,6 +11,7 @@ module.exports = (req, res, next) => {
         req.userData = decoded;
         console.log("check_auth just decoded: ", req.userData)
         // if successful, have to call next()
+        res.locals.user = req.userData;
         next();
     } catch (error) {
         return res.status(401).json({
