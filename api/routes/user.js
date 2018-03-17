@@ -3,11 +3,12 @@ const router = express.Router();
 
 const userController = require('../controllers/user');
 const checkAuth = require('../middleware/check-auth');
+const tokenAuth = require('../middleware/get_user_from_auth');
 
 // user auth
 router.post('/signup', userController.signup_user);
 router.post('/login', userController.login_user);
-router.get('/finduser', checkAuth, userController.find_user);
+router.get('/finduser', tokenAuth, userController.find_user);
 // user monkeys
 router.post('/:userID/monkey/new', checkAuth, userController.create_user_monkey);
 router.get('/:userID/monkeys', checkAuth, userController.get_user_monkeys);

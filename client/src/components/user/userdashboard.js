@@ -12,35 +12,54 @@ class UserDashboard extends Component {
     constructor(props) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleGetMonkeys = this.handleGetMonkeys.bind(this);
+        this.handleRefresh = this.handleRefresh.bind(this);
         this.handleCupcakeSubmit = this.handleCupcakeSubmit.bind(this);
-        this.handleGetCupcakes = this.handleGetCupcakes.bind(this);
     }
-    componentDidMount() {
+    async componentDidMount() {
         if (this.props.user != undefined) {
             const userid = this.props.user._id;
-            const name = this.props.user.name;
             this.props.fetchUserMonkeys({ userid });
             this.props.fetchUserCupcakes({ userid });
         } else {
-            this.props.findUser();
+            try {
+                await this.props.findUser();
+                const userid = this.props.user._id;
+                this.props.fetchUserMonkeys({ userid });
+                this.props.fetchUserCupcakes({ userid });
+            } catch (error) {console.log(error)}
         }
     }
 
-    componentDidUpdate(prevProps) {
-        // if (this.props.selectedMonkey !== prevProps.selectedMonkey) {
-        //     const { dispatch, selectedMonkey } = this.props;
-        //     dispatch(fetchCupcakesIfNeeded(selectedMonkey));
-        // }
-        console.log('user:', this.props.user);
-        console.log('Dash Monkeys:', this.props.monkeys);
-        console.log('Dash Cupcakes:', this.props.cupcakes);
+    renderComponent() {
+        this.renderMonkeys()
+        this.renderCupcakes()
+        this.renderAddCupcakeForm()
     }
-    // handleChange(nextMonkey) {
-    //     this.props.dispatch(selectMonkey(nextMonkey));
-    //     this.props.dispatch(fetchCupcakeIfNeeded(nextMonkey));
+
+    // componentWillReceiveProps(nextProps) {
+    //     if (typeof nextProps.user != undefined) {
+    //         this.setState({
+    //             user: nextProps.user
+    //         })
+    //     }
+    //     if (typeof nextProps.monkeys != undefined) {
+    //         this.setState({
+    //             monkeys: nextProps.monkeys
+    //         })
+    //     }
+    //     if (typeof nextProps.cupcakes != undefined) {
+    //         this.setState({
+    //             cupcakes: nextProps.cupcakes
+    //         })
+    //     }
     // }
-    //const userid = this.props.user._id
+    //
+    // componentDidUpdate(prevProps) {
+    //     console.log('user:', this.props.user);
+    //     console.log('Dash Monkeys:', this.props.monkeys);
+    //     console.log('Dash Cupcakes:', this.props.cupcakes);
+    // }
+
     handleSubmit({ name }) {
         console.log('handleSubmitMonkey with', { name });
         console.log('userid is', this.props.user._id);
@@ -48,10 +67,11 @@ class UserDashboard extends Component {
         this.props.createMonkey({ userid, name });
     }
 
-    handleGetMonkeys(e) {
+    handleRefresh(e) {
         e.preventDefault();
         const userid = this.props.user._id;
         this.props.fetchUserMonkeys({ userid });
+        this.props.fetchUserCupcakes({ userid });
     }
 
     renderMonkeys() {
@@ -69,12 +89,6 @@ class UserDashboard extends Component {
         console.log('handleSubmitCupcake with', monkeyid, color);
         const userid = this.props.user._id;
         this.props.createCupcake({ userid, monkeyid, color });
-    }
-
-    handleGetCupcakes(e) {
-        e.preventDefault();
-        const userid = this.props.user._id;
-        this.props.fetchUserCupcakes({ userid });
     }
 
     renderAddCupcakeForm() {
@@ -103,13 +117,9 @@ class UserDashboard extends Component {
     renderName() {
         if (this.props.user != undefined) {
             const name = this.props.user.name;
-            return (
-                <h1>
-                    Hi, {name[0].toUpperCase() + name.substr(1)}
-                </h1>
-            )
+            return <h1>Hi, {name[0].toUpperCase() + name.substr(1)}</h1>;
         } else {
-            console.log("trying to render Name but user is undefined")
+            console.log('trying to render Name but user is undefined');
         }
     }
 
@@ -118,23 +128,13 @@ class UserDashboard extends Component {
             <div className="container">
                 <div className="section">
                     <div className="row valign-wrapper">
-                        <div className="col m6 s12">
-                            {this.renderName()}
-                        </div>
-                        <div className="col m3 s6 center">
+                        <div className="col m6 s12">{this.renderName()}</div>
+                        <div className="col m6 s12 center">
                             <button
                                 className="btn-large"
-                                onClick={this.handleGetMonkeys}
+                                onClick={this.handleRefresh}
                             >
-                                Refresh Monkeys
-                            </button>
-                        </div>
-                        <div className="col m3 s6 center">
-                            <button
-                                className="btn-large"
-                                onClick={this.handleGetCupcakes}
-                            >
-                                Refresh Cupcakes
+                                Refresh
                             </button>
                         </div>
                     </div>
