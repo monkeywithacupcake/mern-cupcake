@@ -24,7 +24,7 @@ Monkeys are owned by Users. Cupcakes are always related to a particular Monkey.
 
 ### Branches
 The master branch will always be the most complete working copy.
-Additional feature branches are created as progress is made on different components of the application. Once they are merged into the master, they are deleted.
+Additional feature branches are created as progress is made on different components of the application. Some feature branches are retained to allow quick switching to see how things change.
 
 ### Usage
 
@@ -70,10 +70,10 @@ Currently, MERN Cupcake has a landing page, a signup form, and a signin form. Us
 #### Sign in users with the Sign In form
 ![SignIn Form Screenshot](/screenshots/signinform.png)
 
-#### Users go to a dashboard when log in is successful. The dashboard shows the currently logged in user, allows adding monkeys, allows adding cupcakes to monkeys, and shows monkeys with their cupcakes in cards and cupcakes alone in cards. 
+#### Users go to a dashboard when log in is successful. The dashboard shows the currently logged in user, allows adding monkeys, allows adding cupcakes to monkeys, and shows monkeys with their cupcakes in cards and cupcakes alone in cards.
 ![Dashboard Screenshot](/screenshots/userdash.png)
 
-#### Big Deal - if you see this, just go to the routh `/signout` to clear the authenticated=true. We can fix this by adding a 'go find the user from the token' but that has not been added yet.
+#### Big Deal - if you see this, just go to the route `/signout` to clear the authenticated=true. This should be fixed in the master branch when the token is valid, but there is still no redirect if the token is not valid. 
 ![Dashboard Screenshot](/screenshots/needtosignout.png)
 
 ### Contributing
