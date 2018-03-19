@@ -18,12 +18,12 @@ window.axios = axios;
 const loggerMiddleware = createLogger()
 const store = createStore(reducers, {}, applyMiddleware(reduxThunk, loggerMiddleware));
 
-const token = localStorage.getItem('token');
-// If we have a token, consider the user to be signed in
-if (token) {
-  // we need to update application state
-  store.dispatch({ type: AUTH_USER });
-}
+// const token = localStorage.getItem('token');
+// // If we have a token, consider the user to be signed in
+// if (token) {
+//   // we need to update application state
+//   store.dispatch({ type: AUTH_USER });
+// }
 
 
 ReactDom.render(

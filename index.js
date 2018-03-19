@@ -46,9 +46,11 @@ app.use((req, res, next) => {
 
 // routes to handle
 const userRoutes = require('./api/routes/user');
+const bakerRoutes = require('./api/routes/baker');
 const adminRoutes = require('./api/routes/admin');
 
 app.use('/api/user', userRoutes);
+app.use('/api/baker', bakerRoutes);
 app.use('/api/admin', adminRoutes);
 
 // c!aution - set up admin routes to not require any auth for quick look in dev in postman
