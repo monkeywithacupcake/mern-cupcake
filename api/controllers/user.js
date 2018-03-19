@@ -145,6 +145,9 @@ exports.login_user = (req, res, next) => {
 
 exports.create_user_monkey = (req, res, next) => {
     const userid = req.params.userID;
+    const tokenid = res.locals.user.userId;
+    console.log("comparing: ", userid, tokenid)
+    if (userid !== tokenid ) { return res.status(404).json({ message: 'Unauthorized'})}
     console.log('Made it to the API for create_user_monkey');
     User.findById(userid)
         .then(user => {
@@ -178,6 +181,9 @@ exports.create_user_monkey = (req, res, next) => {
 
 exports.get_user_monkeys = (req, res, next) => {
     const userid = req.params.userID;
+    const tokenid = res.locals.user.userId;
+    console.log("comparing: ", userid, tokenid)
+    if (userid !== tokenid ) { return res.status(404).json({ message: 'Unauthorized'})}
     Monkey.find({ user: userid })
         .exec()
         .then(docs => {
@@ -200,9 +206,10 @@ exports.get_user_monkeys = (req, res, next) => {
 };
 
 exports.get_user_cupcakes = (req, res, next) => {
-    // with no argument, find will return all elements!
-    // if no elements, will return EMPTY ARRAY []
     const userid = req.params.userID;
+    const tokenid = res.locals.user.userId;
+    console.log("comparing: ", userid, tokenid)
+    if (userid !== tokenid ) { return res.status(404).json({ message: 'Unauthorized'})}
     Cupcake.find({ user: userid })
         .select('color monkey status _id') // don't need user because this is a user lookup
         .exec()
@@ -230,6 +237,9 @@ exports.get_user_cupcakes = (req, res, next) => {
 exports.create_user_cupcake = (req, res, next) => {
     console.log(req.body);
     const userid = req.params.userID;
+    const tokenid = res.locals.user.userId;
+    console.log("comparing: ", userid, tokenid)
+    if (userid !== tokenid ) { return res.status(404).json({ message: 'Unauthorized'})}
     const monkeyid = req.params.monkeyID;
     User.findById(userid).then(user => {
         if (!user) {
