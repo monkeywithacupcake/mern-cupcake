@@ -7,8 +7,12 @@ import {
     UNAUTH_USER,
     AUTH_USER,
     AUTH_ERROR,
-    FETCH_USER
+    FETCH_USER,
+    UNAUTH_BAKER,
+    AUTH_BAKER,
+    FETCH_BAKER
 } from './types';
+
 
 const USER_API_URL = '/api/user';
 
@@ -249,5 +253,133 @@ export function authError(error) {
     return {
         type: AUTH_ERROR,
         payload: error
+    };
+}
+
+
+// baker
+const BAKER_API_URL = '/api/baker';
+
+
+export function signoutBaker() {
+    localStorage.removeItem('token');
+    return {
+        type: UNAUTH_BAKER
+    };
+}
+
+export function findBaker() {
+    return function(dispatch) {
+        const url = `${BAKER_API_URL}/findbaker`;
+
+        console.log(url);
+        const request = axios.get(url, {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+        request
+            .then(response => {
+                console.log(
+                    'findBaker has RESPONSE',
+                    response.data.foundBaker
+                );
+                dispatch({
+                    type: FETCH_BAKER,
+                    payload: response.data.foundBaker
+                });
+            })
+            // If request is bad...
+            // -Show an error to the user
+            .catch((error) => {
+                console.log('error');
+                dispatch({
+                    type: AUTH_ERROR,
+                    payload: error
+                });
+            });
+    };
+}
+
+
+export function signinBaker({ email, password }) {
+    console.log('ACTION CREATOR signinBaker running with:', email, password);
+
+    return function(dispatch) {
+        // submit email and password to server
+        const request = axios.post(`${BAKER_API_URL}/login`, {
+            email,
+            password
+        });
+        request
+            .then(response => {
+                // -Save the JWT token
+                localStorage.setItem('token', response.data.token);
+                console.log(
+                    'ACTION CREATOR RESPONSE FROM API: ',
+                    response.data
+                );
+                // -if request is good, we need to update state to indicate user is authenticated
+                dispatch({
+                    type: AUTH_BAKER,
+                    payload: response.data.baker
+                });
+                console.log(
+                    'action creator response has just authenticated the baker!'
+                );
+            })
+
+            // If request is bad...
+            // -Show an error to the user
+            .catch((error) => {
+                console.log('error');
+                dispatch({
+                    type: AUTH_ERROR,
+                    payload: error
+                });
+            });
+    };
+}
+
+export function signupBaker({ email, password, passwordmatch, name, bakery_name }) {
+    console.log(
+        'ACTION CREATOR signupbaker running with:',
+        email,
+        password,
+        name,
+        bakery_name
+    );
+
+    return function(dispatch) {
+        // submit email and password to server
+        const request = axios.post(`${BAKER_API_URL}/signup`, {
+            email,
+            password,
+            name,
+            bakery_name
+        });
+        request
+            .then(response => {
+                // -Save the JWT token
+                //localStorage.setItem('token', response.data.token);
+                console.log(
+                    'ACTION CREATOR RESPONSE FROM API: ',
+                    response.data
+                );
+                //-if request is good, we need to update state to indicate user is authenticated
+                dispatch({
+                    type: AUTH_BAKER, payload: response.data.createdBaker
+                });
+                console.log(
+                    'action creator response has just authenticated the baker!'
+                );
+            })
+
+            // If request is bad...
+            // -Show an error to the user
+            .catch(() => {
+                console.log('error');
+                //dispatch(authError('bad login info'))
+            });
     };
 }
