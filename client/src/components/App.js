@@ -12,6 +12,9 @@ import Footer from './common/footer';
 // landing unauth
 import Landing from './common/landing';
 
+// baker
+import BakerDashboard from './baker/dashboard';
+
 // user auth
 import UserDashboard from './user/userdashboard';
 import Signin from './auth/signin';
@@ -26,19 +29,26 @@ import About from './common/about';
 class App extends Component {
     componentDidMount() {
         console.log('App has this.props:', this.props);
-
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        console.log('shouldComponentUpdate');
+        console.log('shouldComponentUpdate', nextProps, nextState);
         return nextState !== this.state;
     }
     renderMainContent() {
         console.log('App renderMainContent props:', this.props);
-        if (this.props.auth.authenticated) {
-            this.props.findUser();
+        if (this.props.auth.authenticated && !this.props.typeBaker) {
+            if (!this.props.user) {
+                this.props.findUser();
+            }
             console.log("I'm totally going to show auth");
             return <UserDashboard />;
+        } else if (this.props.typeBaker) {
+            // if (!this.props.baker) {
+            //     this.props.findBaker();
+            // }
+            console.log("I'm totally going to show bakery");
+            return <BakerDashboard />;
         } else {
             return <Landing />;
         }
@@ -71,14 +81,16 @@ function mapStateToProps(state) {
         auth: state.auth,
         user: state.auth.user,
         monkeys: state.userData.monkeys,
-        cupcakes: state.userData.cupcakes
+        cupcakes: state.userData.cupcakes,
+        typeBaker: state.typeBaker,
+        baker: state.baker
         // state: state,
         // authenticated: state.auth.authenticated
     };
 }
 
 function mapDispachToProps(dispatch) {
-  return bindActionCreators(actionCreators, dispatch);
+    return bindActionCreators(actionCreators, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispachToProps)(App);
@@ -117,8 +129,6 @@ export default connect(mapStateToProps, mapDispachToProps)(App);
 // });
 //
 // export default Main;
-
-
 
 //<Route path="*" component={NotFound} />
 // <Route exact

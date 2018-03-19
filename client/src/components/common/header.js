@@ -1,22 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import * as actions from '../../actions';
 
 class Header extends Component {
     constructor(props) {
         super(props);
-        this.state = { isBaker: false };
         this.toggleBaker = this.toggleBaker.bind(this);
     }
 
     toggleBaker(e) {
         e.preventDefault();
         console.log('toggleBaker');
-        this.setState({ isBaker: !this.state.isBaker });
+        //this.setState({ isBaker: !this.state.isBaker });
+        const isBaker = !this.props.typeBaker
+        this.props.setBaker({isBaker})
     }
 
     renderBakerUser() {
-        if (this.state.isBaker) {
+        if (this.props.typeBaker) {
             return (
                 <button
                     onClick={e => {
@@ -40,7 +42,7 @@ class Header extends Component {
     }
 
     renderLinks() {
-        if (this.props.authenticated) {
+        if (this.props.authenticated || this.props.bakerauth) {
             return [
                 <li key={1}>
                     <Link to="/signout">Sign Out</Link>
@@ -78,8 +80,10 @@ class Header extends Component {
 
 function mapStateToProps(state) {
     return {
-        authenticated: state.auth.authenticated
+        authenticated: state.auth.authenticated,
+        bakerauth: state.baker.authenticated,
+        typeBaker: state.typeBaker
     };
 }
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps, actions)(Header);

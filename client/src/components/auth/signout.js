@@ -3,16 +3,28 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions';
 class Signout extends Component {
     componentWillMount() {
-        this.props.signoutUser();
-        this.props.signoutBaker();
+        if (this.props.typeBaker) {
+            this.props.signoutBaker();
+        } else {
+            this.props.signoutUser();
+        }
+    }
+
+    renderMessage() {
+        if (this.props.typeBaker) {
+            return <h2>Thanks for Baking with Us</h2>;
+        } else {
+            return <h2>Have a beautiful day</h2>;
+        }
     }
 
     render() {
         return (
             <div className="container">
-                <div className="section">
-                Bye Bye
-                </div>
+                <br />
+                <br />
+                <br />
+                <div className="section">{this.renderMessage()}</div>
                 <br />
                 <br />
                 <br />
@@ -21,4 +33,10 @@ class Signout extends Component {
     }
 }
 
-export default connect(null, actions)(Signout);
+function mapStateToProps(state) {
+    return {
+        typeBaker: state.typeBaker
+    };
+}
+
+export default connect(mapStateToProps, actions)(Signout);

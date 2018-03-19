@@ -10,9 +10,17 @@ import {
     FETCH_USER,
     UNAUTH_BAKER,
     AUTH_BAKER,
-    FETCH_BAKER
+    FETCH_BAKER,
+    SET_BAKER
 } from './types';
 
+
+export function setBaker({isBaker}) {
+    return {
+        type: SET_BAKER,
+        payload: isBaker
+    }
+}
 
 const USER_API_URL = '/api/user';
 
@@ -321,8 +329,11 @@ export function signinBaker({ email, password }) {
                 );
                 // -if request is good, we need to update state to indicate user is authenticated
                 dispatch({
-                    type: AUTH_BAKER,
-                    payload: response.data.baker
+                    type: AUTH_BAKER
+                });
+                dispatch({
+                    type: FETCH_BAKER,
+                    payload: response.data.loggedinBaker
                 });
                 console.log(
                     'action creator response has just authenticated the baker!'

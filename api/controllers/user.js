@@ -12,12 +12,12 @@ exports.find_user = (req, res, next) => {
     User.findById(res.locals.user.userId)
         .exec()
         .then(user => {
-            console.log('user', user);
             if (!user) {
                 return res.status(404).json({
                     message: 'No User'
                 });
             }
+            console.log('user', user);
             res.status(200).json({
                 message: 'Found a User',
                 foundUser: {

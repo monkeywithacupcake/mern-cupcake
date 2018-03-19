@@ -4,6 +4,8 @@ export const GET_USER_CUPCAKES = 'GET_USER_CUPCAKES';
 export const ADD_USER_CUPCAKE = 'ADD_USER_CUPCAKE';
 export const ADD_USER_MONKEY = 'ADD_USER_MONKEY';
 
+export const SET_BAKER = 'SET_BAKER';
+
 // auth
 export const AUTH_ERROR = 'AUTH_ERROR';
 
