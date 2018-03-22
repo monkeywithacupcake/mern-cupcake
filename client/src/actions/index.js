@@ -67,10 +67,19 @@ export function signinUser({ email, password }) {
                     response.data
                 );
                 // -if request is good, we need to update state to indicate user is authenticated
+                // do not put user in auth path
                 dispatch({
-                    type: AUTH_USER,
+                    type: AUTH_USER
+                });
+                // dispatch({
+                //     type: AUTH_USER,
+                //     payload: response.data.user
+                // });
+                dispatch({
+                    type: FETCH_USER,
                     payload: response.data.user
                 });
+
                 console.log(
                     'action creator response has just authenticated the user!'
                 );
@@ -80,7 +89,6 @@ export function signinUser({ email, password }) {
             // -Show an error to the user
             .catch(() => {
                 console.log('error');
-                //dispatch(authError('bad login info'))
             });
     };
 }
@@ -110,7 +118,10 @@ export function signupUser({ email, password, passwordmatch, name }) {
                 );
                 //-if request is good, we need to update state to indicate user is authenticated
                 dispatch({
-                    type: AUTH_USER, payload: response.data.createdUser
+                    type: AUTH_USER
+                })
+                dispatch({
+                    type: FETCH_USER, payload: response.data.createdUser
                 });
                 console.log(
                     'action creator response has just authenticated the user!'
@@ -121,7 +132,6 @@ export function signupUser({ email, password, passwordmatch, name }) {
             // -Show an error to the user
             .catch(() => {
                 console.log('error');
-                //dispatch(authError('bad login info'))
             });
     };
 }
@@ -179,8 +189,9 @@ export function fetchUserMonkeys({userid}) {
             })
             // If request is bad...
             // -Show an error to the user
-            .catch(() => {
-                console.log('error');
+            .catch((err) => {
+                console.log(err);
+
             });
     };
 }

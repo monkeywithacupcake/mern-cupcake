@@ -6,10 +6,12 @@ import authReducer  from './auth_reducer';
 //import monkeyReducer  from './monkey_reducer';
 //import cupcakeReducer  from './cupcake_reducer';
 import userDataReducer from './userdata_reducer';
+import userReducer from './user_reducer'
 
 export default combineReducers({
   form: formReducer,
   auth: authReducer,
+  user: userReducer,
   userData: userDataReducer
 });
 
