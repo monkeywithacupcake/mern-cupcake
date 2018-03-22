@@ -6,7 +6,7 @@ import reduxThunk from 'redux-thunk';
 import { createLogger } from 'redux-logger'
 import { AUTH_USER } from './actions/types';
 
-import 'materialize-css/dist/css/materialize.min.css';
+//import 'materialize-css/dist/css/materialize.min.css';
 
 
 import App from './components/App';

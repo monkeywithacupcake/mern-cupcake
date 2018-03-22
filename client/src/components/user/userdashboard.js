@@ -127,7 +127,7 @@ class UserDashboard extends Component {
         return (
             <div className="container">
                 <div className="section">
-                    <div className="row valign-wrapper">
+                    <div className="row">
                         <div className="col m6 s12">{this.renderName()}</div>
                         <div className="col m6 s12 center">
                             <button
@@ -149,13 +149,13 @@ class UserDashboard extends Component {
                         {this.renderAddCupcakeForm()}
                     </div>
                 </div>
-                <div className="section">
+                <div className="container">
                     <h2>Monkeys</h2>
-                    <div className="row">{this.renderMonkeys()}</div>
+                    {this.renderMonkeys()}
                 </div>
                 <div className="section">
                     <h2>Cupcakes</h2>
-                    <div className="row">{this.renderCupcakes()}</div>
+                    {this.renderCupcakes()}
                 </div>
             </div>
         );

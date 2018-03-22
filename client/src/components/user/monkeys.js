@@ -17,7 +17,7 @@ export default class Monkeys extends Component {
     render() {
         console.log('Monkeys has:', this.props);
         return (
-            <div>
+            <div className="row justify-content-md-center">
                 {this.props.monkeys.map((monkey, i) => (
                     <MonkeyCard
                         key={i}
