@@ -12,57 +12,39 @@ class Header extends Component {
         if (this.props.authenticated) {
             console.log('HEADER PROPS', this.props);
             return [
-                <li key={1} className="nav-item">
-                    <Link to="/signout" className="nav-link">
-                        Sign Out
-                    </Link>
-                </li>
+                <Link to="/signout" key={1} className="m-2 btn btn-outline-primary">
+                    Sign Out
+                </Link>
             ];
         } else {
             return [
-                <li key={2} className="nav-item">
-                    <Link to="/signin" className="nav-link">
-                        Sign In
-                    </Link>
-                </li>,
-                <li key={3} className="nav-item">
-                    <Link to="/signup" className="nav-link">
-                        Sign Up
-                    </Link>
-                </li>
+                <Link key={2} to="/signin" className="m-2 btn btn-outline-primary">
+                    Sign In
+                </Link>,
+                <Link key={3} to="/signup" className="m-2 btn btn-outline-primary">
+                    Sign Up
+                </Link>
             ];
         }
     }
 
-
-
     render() {
         return (
-            <nav className="navbar navbar-expand-lg navbar-light bg-pop justify-content-between">
-                    <Link to={'/'} className="navbar-brand">
-                        Cupcakes - Test User App
-                    </Link>
-                    <button
-                        className="navbar-toggler"
-                        type="button"
-                        data-toggle="collapse"
-                        data-target="#navbarToggler"
-                        aria-controls="navbarToggler"
-                        aria-expanded="false"
-                        aria-label="Toggle navigation"
-                    >
-                        <span className="navbar-toggler-icon" />
-                    </button>
-                    <div
-                        className="collapse navbar-collapse"
-                        id="navbarToggler"
-                    >
-                        <ul className="navbar-nav ml-auto">
-                            {this.renderLinks()}
-                        </ul>
-                    </div>
+            <div className="d-flex flex-column flex-md-row align-items-center p-3  bg-pop border-bottom box-shadow header">
+                <h5 className="my-0 mr-md-auto font-weight-normal">
+                    MERN Cupcakes
+                </h5>
+                <nav className="mynav">
+                    <a className="p-2 text-dark" href="#">
+                        Features
+                    </a>
+                    <a className="p-2 text-dark" href="#">
+                        About
+                    </a>
+                    {this.renderLinks()}
+                </nav>
 
-            </nav>
+            </div>
         );
     }
 }
@@ -75,7 +57,6 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, actions)(Header);
-
 
 // renderName() {
 //     if (this.props.user != undefined) {

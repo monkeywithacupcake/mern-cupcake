@@ -24,4 +24,23 @@ body {
 
 .sidebar {
     background-color: honeydew;
+    border-right: lightcoral 2px solid;
 }
+
+
+/* header */
+.header {
+    justify-content: space-between;
+}
+.mynav {
+    border: 0;
+    display: inline;
+    box-shadow: none;
+    flex-direction: column;
+    justify-content: flex-end;
+    background-color: inherit;
+}
+.border-top { border-top: 1px solid #e5e5e5; }
+.border-bottom { border-bottom: 1px solid #e5e5e5; }
+
+.box-shadow { box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); }
