@@ -7,7 +7,8 @@ import {
     UNAUTH_USER,
     AUTH_USER,
     AUTH_ERROR,
-    FETCH_USER
+    FETCH_USER,
+    GET_MONKEY_CUPCAKES
 } from './types';
 
 const USER_API_URL = '/api/user';
@@ -26,15 +27,12 @@ export function findUser() {
         console.log(url);
         const request = axios.get(url, {
             headers: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
+                Authorization: `Bearer ${localStorage.getItem('token')}`
             }
         });
         request
             .then(response => {
-                console.log(
-                    'findUser has RESPONSE',
-                    response.data.foundUser
-                );
+                console.log('findUser has RESPONSE', response.data.foundUser);
                 dispatch({
                     type: FETCH_USER,
                     payload: response.data.foundUser
@@ -47,7 +45,6 @@ export function findUser() {
             });
     };
 }
-
 
 export function signinUser({ email, password }) {
     console.log('ACTION CREATOR signinUser running with:', email, password);
@@ -119,9 +116,10 @@ export function signupUser({ email, password, passwordmatch, name }) {
                 //-if request is good, we need to update state to indicate user is authenticated
                 dispatch({
                     type: AUTH_USER
-                })
+                });
                 dispatch({
-                    type: FETCH_USER, payload: response.data.createdUser
+                    type: FETCH_USER,
+                    payload: response.data.createdUser
                 });
                 console.log(
                     'action creator response has just authenticated the user!'
@@ -136,18 +134,53 @@ export function signupUser({ email, password, passwordmatch, name }) {
     };
 }
 
-export function createMonkey({userid, name}) {
+// export function showCreateMonkey({userid}) {
+//     console.log('ACTION to show a new monkey form has:', userid)
+//     console.log("REQ", req)
+//     return function(dispatch) {
+//         const url = `${USER_API_URL}/${userid}/monkey/new`;
+//     }
+//     console.log(url);
+//     const request = axios.get(url {
+//         headers: {
+//             'Authorization': `Bearer ${localStorage.getItem('token')}`
+//         }
+//     });
+//     request
+//         .then(response => {
+//             console.log(
+//                 'createMonkey has RESPONSE',
+//                 response.data.createdMonkey
+//             );
+//             // dispatch({
+//             //     type: ADD_USER_MONKEY,
+//             //     payload: [response.data.createdMonkey]
+//             // });
+//         })
+//         // If request is bad...
+//         // -Show an error to the user
+//         .catch(() => {
+//             console.log('error');
+//         });
+// };
+// }
+
+export function createMonkey({ userid, name }) {
     console.log('ACTION createMonkey has:', userid, name);
 
     return function(dispatch) {
-        const url = `${USER_API_URL}/${userid}/monkey/new`;
+        const url = `${USER_API_URL}/${userid}/monkeys`;
 
         console.log(url);
-        const request = axios.post(url, {name}, {
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
+        const request = axios.post(
+            url,
+            { name },
+            {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
             }
-        });
+        );
         request
             .then(response => {
                 console.log(
@@ -167,13 +200,13 @@ export function createMonkey({userid, name}) {
     };
 }
 
-export function fetchUserMonkeys({userid}) {
+export function fetchUserMonkeys({ userid }) {
     console.log('ACTION fetchUserMonkeys has:', userid);
     return function(dispatch) {
         const url = `${USER_API_URL}/${userid}/monkeys`;
         const request = axios.get(url, {
             headers: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
+                Authorization: `Bearer ${localStorage.getItem('token')}`
             }
         });
         request
@@ -189,26 +222,29 @@ export function fetchUserMonkeys({userid}) {
             })
             // If request is bad...
             // -Show an error to the user
-            .catch((err) => {
+            .catch(err => {
                 console.log(err);
-
             });
     };
 }
 
-export function createCupcake({userid, monkeyid, color}) {
+export function createCupcake({ userid, monkeyid, color }) {
     console.log('ACTION createCupcake has:', userid, monkeyid, color);
-    console.log(monkeyid)
-    console.log(color)
+    console.log(monkeyid);
+    console.log(color);
     return function(dispatch) {
-        const url = `${USER_API_URL}/${userid}/monkey/${monkeyid}/cupcake/new`;
+        const url = `${USER_API_URL}/${userid}/monkeys/${monkeyid}/cupcakes`;
 
         console.log(url);
-        const request = axios.post(url, {color}, {
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
+        const request = axios.post(
+            url,
+            { color },
+            {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
             }
-        });
+        );
         request
             .then(response => {
                 console.log(
@@ -228,12 +264,12 @@ export function createCupcake({userid, monkeyid, color}) {
     };
 }
 
-export function fetchUserCupcakes({userid}) {
+export function fetchUserCupcakes({ userid }) {
     return function(dispatch) {
         const url = `${USER_API_URL}/${userid}/cupcakes`;
         const request = axios.get(url, {
             headers: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
+                Authorization: `Bearer ${localStorage.getItem('token')}`
             }
         });
         request
@@ -245,6 +281,33 @@ export function fetchUserCupcakes({userid}) {
                 // need to mutate cupcakes into a cupcakesById kinda thing?
                 dispatch({
                     type: GET_USER_CUPCAKES,
+                    payload: response.data.cupcakes
+                });
+            })
+            // If request is bad...
+            // -Show an error to the user
+            .catch(() => {
+                console.log('error');
+            });
+    };
+}
+export function fetchMonkeyCupcakes({ userid, monkeyid }) {
+    return function(dispatch) {
+        const url = `${USER_API_URL}/${userid}/monkeys/${monkeyid}/cupcakes`;
+        const request = axios.get(url, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+        request
+            .then(response => {
+                console.log(
+                    'fetchMonkeyCupcakes has RESPONSE',
+                    response.data.cupcakes
+                );
+                // need to mutate cupcakes into a cupcakesById kinda thing?
+                dispatch({
+                    type: GET_MONKEY_CUPCAKES,
                     payload: response.data.cupcakes
                 });
             })

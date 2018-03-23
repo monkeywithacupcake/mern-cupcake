@@ -2,11 +2,28 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+import ReactModal from 'react-modal';
+
 import * as actions from '../../actions';
 import Cupcakes from './cupcakes';
 import Monkeys from './monkeys';
 import AddMonkeyForm from './add_monkey_form';
 import AddCupcakeForm from './add_cupcake_form';
+
+const customStyles = {
+    content: {
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)'
+    },
+    overlay: {
+        backgroundColor: 'seagreen',
+        opacity: '0.9'
+    }
+};
 
 class UserDashboard extends Component {
     constructor(props) {
@@ -14,6 +31,14 @@ class UserDashboard extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleRefresh = this.handleRefresh.bind(this);
         this.handleCupcakeSubmit = this.handleCupcakeSubmit.bind(this);
+
+        // ocal state for modal
+        this.state = {
+            showModal: false
+        };
+
+        this.handleOpenModal = this.handleOpenModal.bind(this);
+        this.handleCloseModal = this.handleCloseModal.bind(this);
     }
     async componentDidMount() {
         if (this.props.user != undefined) {
@@ -26,39 +51,26 @@ class UserDashboard extends Component {
                 const userid = this.props.user.id;
                 this.props.fetchUserMonkeys({ userid });
                 this.props.fetchUserCupcakes({ userid });
-            } catch (error) {console.log(error)}
+            } catch (error) {
+                console.log(error);
+            }
         }
     }
 
     renderComponent() {
-        this.renderMonkeys()
-        this.renderCupcakes()
-        this.renderAddCupcakeForm()
+        this.renderMonkeys();
+        this.renderCupcakes();
+        this.renderAddCupcakeForm();
     }
 
-    // componentWillReceiveProps(nextProps) {
-    //     if (typeof nextProps.user != undefined) {
-    //         this.setState({
-    //             user: nextProps.user
-    //         })
-    //     }
-    //     if (typeof nextProps.monkeys != undefined) {
-    //         this.setState({
-    //             monkeys: nextProps.monkeys
-    //         })
-    //     }
-    //     if (typeof nextProps.cupcakes != undefined) {
-    //         this.setState({
-    //             cupcakes: nextProps.cupcakes
-    //         })
-    //     }
-    // }
-    //
-    // componentDidUpdate(prevProps) {
-    //     console.log('user:', this.props.user);
-    //     console.log('Dash Monkeys:', this.props.monkeys);
-    //     console.log('Dash Cupcakes:', this.props.cupcakes);
-    // }
+    handleOpenModal() {
+        this.setState({ showModal: true });
+    }
+
+    handleCloseModal() {
+        this.setState({ showModal: false });
+    }
+
 
     handleSubmit({ name }) {
         console.log('handleSubmitMonkey with', { name });
@@ -126,6 +138,18 @@ class UserDashboard extends Component {
     render() {
         return (
             <div className="container">
+                <button onClick={this.handleOpenModal}>Trigger Modal</button>
+                <ReactModal
+                    isOpen={this.state.showModal}
+                    contentLabel="onRequestClose Example"
+                    onRequestClose={this.handleCloseModal}
+                    style={customStyles}
+                    contentLabel="Example Modal"
+                >
+                    <p>Modal text!</p>
+                    <button onClick={this.handleCloseModal}>Close Modal</button>
+                </ReactModal>
+
                 <div className="section">
                     <div className="row valign-wrapper">
                         <div className="col m6 s12">{this.renderName()}</div>
@@ -151,11 +175,11 @@ class UserDashboard extends Component {
                 </div>
                 <div className="section">
                     <h2>Monkeys</h2>
-                    <div className="row">{this.renderMonkeys()}</div>
+                    {this.renderMonkeys()}
                 </div>
                 <div className="section">
                     <h2>Cupcakes</h2>
-                    <div className="row">{this.renderCupcakes()}</div>
+                    {this.renderCupcakes()}
                 </div>
             </div>
         );

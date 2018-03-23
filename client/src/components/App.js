@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import {  HashRouter, Route, Switch  } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actionCreators from '../actions';
@@ -10,7 +10,7 @@ import Header from './common/header';
 import Footer from './common/footer';
 
 // landing unauth
-import Landing from './common/landing';
+import Landing from './pages/landing';
 
 // user auth
 import UserDashboard from './user/userdashboard';
@@ -21,12 +21,14 @@ import Signup from './auth/signup';
 import { PrivateRoute } from './auth/require_auth';
 
 // special pages
-import About from './common/about';
+import About from './pages/about';
 
 class App extends Component {
     componentDidMount() {
         console.log('App has this.props:', this.props);
-
+        if (this.props.auth.authenticated) {
+            if (!this.props.user) {this.props.findUser();}
+        }
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -36,7 +38,7 @@ class App extends Component {
     renderMainContent() {
         console.log('App renderMainContent props:', this.props);
         if (this.props.auth.authenticated) {
-            this.props.findUser();
+            if (!this.props.user) {this.props.findUser();}
             console.log("I'm totally going to show auth");
             return <UserDashboard />;
         } else {
@@ -46,9 +48,10 @@ class App extends Component {
 
     render() {
         return (
-            <BrowserRouter>
-                <div>
+            <HashRouter>
+                <div className="main">
                     <Header />
+                    <Switch>
                     <Route exact path="/about" component={About} />
                     <Route exact path="/signin" component={Signin} />
                     <Route exact path="/signup" component={Signup} />
@@ -58,10 +61,10 @@ class App extends Component {
                         path="/"
                         component={() => this.renderMainContent()}
                     />
-
+                    </Switch>
                     <Footer />
                 </div>
-            </BrowserRouter>
+            </HashRouter>
         );
     }
 }

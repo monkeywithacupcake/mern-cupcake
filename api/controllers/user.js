@@ -143,6 +143,51 @@ exports.login_user = (req, res, next) => {
         });
 };
 
+exports.show_new_monkey = (req, res, next) => {
+    const userid = req.params.userID;
+    const tokenid = res.locals.user.userId;
+    console.log("comparing: ", userid, tokenid)
+    if (userid !== tokenid ) { return res.status(404).json({ message: 'Unauthorized'})}
+    console.log('Made it to the API for SHOW create_user_monkey');
+    User.findById(userid, function(err, foundUser) {
+        if (err) {
+            req.flash('error', err.message)
+            res.redirect('back');
+        } else {
+            console.log('trying to show');
+            console.log(foundUser);
+            res.render('user/addcup/new', { user: foundUser });
+        }
+    });
+    User.findById(userid)
+        .then(user => {
+            if (!user) {
+                return res.status(404).json({
+                    message: 'No User'
+                });
+            }
+            const monkey = new Monkey({
+                _id: mongoose.Types.ObjectId(),
+                user: userid,
+                name: req.body.name
+            });
+            return monkey.save();
+        })
+        .then(result => {
+            res.status(201).json({
+                message: 'monkey created',
+                createdMonkey: {
+                    name: result.name,
+                    _id: result._id
+                }
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({ error: err });
+        });
+};
+
 exports.create_user_monkey = (req, res, next) => {
     const userid = req.params.userID;
     const tokenid = res.locals.user.userId;
@@ -233,6 +278,35 @@ exports.get_user_cupcakes = (req, res, next) => {
             res.status(500).json({ error: err });
         });
 };
+
+exports.get_monkey_cupcakes = (req, res, next) => {
+    const userid = req.params.userID;
+    const tokenid = res.locals.user.userId;
+    console.log("comparing: ", userid, tokenid)
+    if (userid !== tokenid ) { return res.status(404).json({ message: 'Unauthorized'})}
+    Cupcake.find({ monkey: monkeyid })
+        .select('color monkey status _id') // don't need user
+        .exec()
+        .then(docs => {
+            const response = {
+                count: docs.length,
+                cupcakes: docs.map(doc => {
+                    return {
+                        monkey: doc.monkey,
+                        color: doc.color,
+                        status: doc.status,
+                        _id: doc._id
+                    };
+                })
+            };
+            res.status(200).json(response);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({ error: err });
+        });
+};
+
 
 exports.create_user_cupcake = (req, res, next) => {
     console.log(req.body);
