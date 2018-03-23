@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-
-import ReactModal from 'react-modal';
 
 import * as actions from '../../actions';
 import Cupcakes from './cupcakes';
@@ -10,35 +7,12 @@ import Monkeys from './monkeys';
 import AddMonkeyForm from './add_monkey_form';
 import AddCupcakeForm from './add_cupcake_form';
 
-const customStyles = {
-    content: {
-        top: '50%',
-        left: '50%',
-        right: 'auto',
-        bottom: 'auto',
-        marginRight: '-50%',
-        transform: 'translate(-50%, -50%)'
-    },
-    overlay: {
-        backgroundColor: 'seagreen',
-        opacity: '0.9'
-    }
-};
-
 class UserDashboard extends Component {
     constructor(props) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleRefresh = this.handleRefresh.bind(this);
         this.handleCupcakeSubmit = this.handleCupcakeSubmit.bind(this);
-
-        // ocal state for modal
-        this.state = {
-            showModal: false
-        };
-
-        this.handleOpenModal = this.handleOpenModal.bind(this);
-        this.handleCloseModal = this.handleCloseModal.bind(this);
     }
     async componentDidMount() {
         if (this.props.user != undefined) {
@@ -56,21 +30,6 @@ class UserDashboard extends Component {
             }
         }
     }
-
-    renderComponent() {
-        this.renderMonkeys();
-        this.renderCupcakes();
-        this.renderAddCupcakeForm();
-    }
-
-    handleOpenModal() {
-        this.setState({ showModal: true });
-    }
-
-    handleCloseModal() {
-        this.setState({ showModal: false });
-    }
-
 
     handleSubmit({ name }) {
         console.log('handleSubmitMonkey with', { name });
@@ -106,7 +65,7 @@ class UserDashboard extends Component {
     renderAddCupcakeForm() {
         if (this.props.monkeys != undefined && this.props.monkeys.length > 0) {
             return (
-                <div className="col m6 s12">
+                <div>
                     <h4>Add a new cupcake</h4>
                     <AddCupcakeForm
                         onSubmit={this.handleCupcakeSubmit}
@@ -135,52 +94,45 @@ class UserDashboard extends Component {
         }
     }
 
+    renderSideBar() {
+        return (
+            <div className="col-sm-12 col-md-3 sidebar">
+            {this.renderName()}
+            <button
+                className="btn-large"
+                onClick={this.handleRefresh}
+            >
+                Refresh
+            </button>
+            <h4>Add a new monkey</h4>
+            <AddMonkeyForm onSubmit={this.handleSubmit} />
+            {this.renderAddCupcakeForm()}
+            </div>
+        )
+
+    }
+    renderMainDash() {
+        return (
+            <div className="col-sm-12 col-md-9">
+            <div className="section">
+                <h2>Monkeys</h2>
+                {this.renderMonkeys()}
+            </div>
+            <div className="section">
+                <h2>Cupcakes</h2>
+                {this.renderCupcakes()}
+            </div>
+            </div>
+        )
+    }
+
     render() {
         return (
-            <div className="container">
-                <button onClick={this.handleOpenModal}>Trigger Modal</button>
-                <ReactModal
-                    isOpen={this.state.showModal}
-                    contentLabel="onRequestClose Example"
-                    onRequestClose={this.handleCloseModal}
-                    style={customStyles}
-                    contentLabel="Example Modal"
-                >
-                    <p>Modal text!</p>
-                    <button onClick={this.handleCloseModal}>Close Modal</button>
-                </ReactModal>
+            <div className="row">
 
-                <div className="section">
-                    <div className="row valign-wrapper">
-                        <div className="col m6 s12">{this.renderName()}</div>
-                        <div className="col m6 s12 center">
-                            <button
-                                className="btn-large"
-                                onClick={this.handleRefresh}
-                            >
-                                Refresh
-                            </button>
-                        </div>
-                    </div>
-                </div>
+            {this.renderSideBar()}
+            {this.renderMainDash()}
 
-                <div className="section">
-                    <div className="row">
-                        <div className="col m6 s12">
-                            <h4>Add a new monkey</h4>
-                            <AddMonkeyForm onSubmit={this.handleSubmit} />
-                        </div>
-                        {this.renderAddCupcakeForm()}
-                    </div>
-                </div>
-                <div className="section">
-                    <h2>Monkeys</h2>
-                    {this.renderMonkeys()}
-                </div>
-                <div className="section">
-                    <h2>Cupcakes</h2>
-                    {this.renderCupcakes()}
-                </div>
             </div>
         );
     }

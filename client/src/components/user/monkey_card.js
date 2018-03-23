@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 function Cupcake(props) {
     return (
         <li className="list-group-item">
-            <a className="col s4" href={`#${props.monkey}${props.color}`}>
+            <a href={`#${props.monkey}${props.color}`}>
                 {props.color}
             </a>
         </li>
@@ -28,10 +28,12 @@ function MonkeyCard(props) {
             <ul className="list-group list-group-flush">
                 {renderCupcakes(props.cupcakes)}
             </ul>
-            <div className="card-body">
-                <a href="#">New Cupcake</a>
-            </div>
+
         </div>
     );
 }
 export default MonkeyCard;
+
+// <div className="card-body">
+//     <a href="#">New Cupcake</a>
+// </div>

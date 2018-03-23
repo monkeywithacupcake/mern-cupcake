@@ -8,31 +8,37 @@ class Header extends Component {
         super(props);
     }
 
-
     renderLinks() {
-        if (this.props.authenticated || this.props.bakerauth) {
-            console.log("HEADER PROPS", this.props)
+        if (this.props.authenticated) {
+            console.log('HEADER PROPS', this.props);
             return [
                 <li key={1} className="nav-item">
-                    <Link to="/signout"  className="nav-link">Sign Out</Link>
+                    <Link to="/signout" className="nav-link">
+                        Sign Out
+                    </Link>
                 </li>
             ];
         } else {
             return [
                 <li key={2} className="nav-item">
-                    <Link to="/signin"  className="nav-link">Sign In</Link>
+                    <Link to="/signin" className="nav-link">
+                        Sign In
+                    </Link>
                 </li>,
                 <li key={3} className="nav-item">
-                    <Link to="/signup" className="nav-link">Sign Up</Link>
+                    <Link to="/signup" className="nav-link">
+                        Sign Up
+                    </Link>
                 </li>
             ];
         }
     }
 
+
+
     render() {
         return (
-            <nav className="navbar navbar-expand-lg bg-pop justify-content-between">
-                <div className="nav-wrapper container">
+            <nav className="navbar navbar-expand-lg navbar-light bg-pop justify-content-between">
                     <Link to={'/'} className="navbar-brand">
                         Cupcakes - Test User App
                     </Link>
@@ -41,7 +47,7 @@ class Header extends Component {
                         type="button"
                         data-toggle="collapse"
                         data-target="#navbarToggler"
-                        aria-controls="navbarTogglerDemo01"
+                        aria-controls="navbarToggler"
                         aria-expanded="false"
                         aria-label="Toggle navigation"
                     >
@@ -51,11 +57,11 @@ class Header extends Component {
                         className="collapse navbar-collapse"
                         id="navbarToggler"
                     >
-                        <ul className="navbar-nav mr-auto mt-2 mt-lg-0 navbar-right">
+                        <ul className="navbar-nav ml-auto">
                             {this.renderLinks()}
                         </ul>
                     </div>
-                </div>
+
             </nav>
         );
     }
@@ -69,3 +75,17 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, actions)(Header);
+
+
+// renderName() {
+//     if (this.props.user != undefined) {
+//         console.log('HEADER Has a USER');
+//         const name = this.props.user.name;
+//         return <h5 className="mr-auto">Welcome, {name[0].toUpperCase() + name.substr(1)}</h5>;
+//     } else {
+//         console.log(
+//             'trying to render Name IN HEADER but user is undefined'
+//         );
+//     }
+// }
+// {this.renderName()}

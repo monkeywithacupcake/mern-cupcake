@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {  HashRouter, Route, Switch  } from 'react-router-dom';
+import {  BrowserRouter, HashRouter, Route, Switch  } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actionCreators from '../actions';
@@ -48,7 +48,7 @@ class App extends Component {
 
     render() {
         return (
-            <HashRouter>
+            <BrowserRouter>
                 <div className="main">
                     <Header />
                     <Switch>
@@ -64,7 +64,7 @@ class App extends Component {
                     </Switch>
                     <Footer />
                 </div>
-            </HashRouter>
+            </BrowserRouter>
         );
     }
 }
